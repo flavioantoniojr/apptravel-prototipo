@@ -877,7 +877,7 @@ body{background:#F1EEFB}
                 <b style="font-size: 17px">{{dp.fm.titulo}}</b>
                 <button class="chip chip-on" style="flex: none" onClick="{{dp.salvar}}">Salvar</button>
               </div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: #625D7C">Com você e: <span class="pill" style="background: #F0ECFF; color: #4A2FD6">Grupo Roma · 4 pessoas</span></div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: #625D7C">Dividir com: <span class="pill" style="{{dp.fm.comStyle}}">{{dp.fm.comTxt}}</span></div>
               <div class="field"><label class="lbl" for="d-desc">Descrição</label>
                 <div style="display: flex; gap: 10px; align-items: center"><span style="width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.fm.icoBg}}"><img src="{{dp.fm.emo}}" alt="" width="34" height="34" style="display: block"></span><input id="d-desc" class="inp" placeholder="Ex.: Jantar em Trastevere" value="{{f.dDesc}}" onChange="{{dp.setDesc}}"></div>
                 <div class="hint">Categoria sugerida: {{dp.fm.catNome}}</div>
@@ -921,6 +921,9 @@ body{background:#F1EEFB}
                 <sc-for list="{{dp.tipos}}" as="t" hint-placeholder-count="6"><button class="{{t.cls}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for>
               </div>
               <p class="sub" style="margin-top: 12px; font-size: 14px">{{dp.fm.tipoDica}}</p>
+              <sc-if value="{{dp.fm.ehIgual}}" hint-placeholder-val="{{ true }}">
+                <button onClick="{{dp.fm.todosToggle}}" class="li todos" style="width: 100%; border: 2px solid #E4DFF5; cursor: pointer; font-family: inherit; padding: 10px 12px; color: #1E1840; margin-top: 10px"><span style="display: flex; align-items: center; gap: 10px"><span style="width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.fm.todosStyle}}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><img src="{{emo.hug}}" alt="" width="28" height="28" style="display: block"><b style="font-size: 15px; white-space: nowrap">Todos do grupo</b></span><span class="pill" style="{{dp.fm.selStyle}}">{{dp.fm.selTxt}}</span></button>
+              </sc-if>
               <div style="margin-top: 6px">
                 <sc-for list="{{dp.fm.linhas}}" as="l" hint-placeholder-count="4">
                   <div class="li" style="padding: 8px 12px">
@@ -1454,7 +1457,9 @@ class Component extends DCLogic {
       { x: 50, y: 94, run: () => { dv().novo(); return 700; } },
       { x: 58, y: 24, run: t('dDesc', 'Jantar em Trastevere') },
       { x: 60, y: 38, run: t('dValor', '160') },
-      { x: 50, y: 62, run: () => 1700 },
+      { x: 77, y: 47, run: g('dividir', 1200) },
+      { x: 50, y: 39, run: () => { this.showToast('As 4 pessoas estão selecionadas'); return 1900; } },
+      { x: 50, y: 94, run: g('addDesp', 1800) },
       { x: 84, y: 8, run: () => { dv().salvar(); return 1600; } },
       { x: 92, y: 80, run: () => { this.agenciaLanca(); return 2400; } },
       { x: 50, y: 7, run: () => { dv().abrirPush(); return 3000; } },
@@ -1463,9 +1468,10 @@ class Component extends DCLogic {
       { x: 58, y: 24, run: t('dDesc', 'Passeio de Vespa') },
       { x: 60, y: 38, run: t('dValor', '90') },
       { x: 77, y: 47, run: g('dividir', 1100) },
-      { x: 38, y: 47, run: () => { dv().fm.linhas[1].toggle(); return 600; } },
-      { x: 38, y: 55, run: () => { dv().fm.linhas[2].toggle(); return 1500; } },
-      { x: 50, y: 94, run: g('addDesp', 1600) },
+      { x: 50, y: 39, run: () => { dv().fm.todosToggle(); return 1100; } },
+      { x: 38, y: 48, run: () => { dv().fm.linhas[0].toggle(); return 700; } },
+      { x: 38, y: 72, run: () => { dv().fm.linhas[3].toggle(); return 1800; } },
+      { x: 50, y: 94, run: g('addDesp', 1800) },
       { x: 84, y: 8, run: () => { dv().salvar(); return 1600; } },
       { x: 65, y: 36, run: g('saldos', 2600) },
       { x: 12, y: 8, run: g('financas', 800) },
@@ -1774,7 +1780,13 @@ class Component extends DCLogic {
         titulo: fm.id ? 'Editar despesa' : 'Nova despesa', simb: fm.moeda === 'EUR' ? '€' : 'R$', emo: EMO[cat[0]], icoBg: cat[2], catNome: cat[1],
         pagoTxt: fm.multi ? 'várias pessoas' : (fm.payer === 0 ? 'você' : nomes[fm.payer]), divTxt: divTxt, resumo: resumo,
         erroOn: total > 0 && (!!sp.erro || (fm.multi && Math.abs(sumPays - total) > 0.004)), erro: sp.erro || 'A soma de quem pagou não bate com o total.',
-        tipoDica: dicas[fm.tipo], linhas: linhas, totalTxt: fmt(total, fm.moeda),
+        tipoDica: dicas[fm.tipo], linhas: linhas,
+        ehIgual: fm.tipo === 'igual',
+        todosToggle: () => { const all = fm.part.every((x) => x); this.setFm({ part: [!all, !all, !all, !all] }); },
+        todosStyle: fm.part.every((x) => x) ? 'background: #5B3DF5; color: #FFFFFF' : 'background: #FFFFFF; color: transparent; border: 2px solid #D9D2F2',
+        selTxt: fm.part.filter((x) => x).length + ' de 4', selStyle: fm.part.every((x) => x) ? 'background: #F0ECFF; color: #4A2FD6' : 'background: #FFF4D6; color: #7A4B00',
+        comTxt: (() => { if (fm.tipo !== 'igual') return 'Todo o grupo · 4 pessoas'; const q = [0, 1, 2, 3].filter((i) => fm.part[i]); if (q.length === 4) return 'Todo o grupo · 4 pessoas'; if (!q.length) return 'Ninguém selecionado'; return q.length + ' pessoas: ' + q.map((i) => i === 0 ? 'você' : nomes[i]).join(' e '); })(),
+        comStyle: fm.tipo === 'igual' && !fm.part.every((x) => x) ? 'background: #FFF4D6; color: #7A4B00' : 'background: #F0ECFF; color: #4A2FD6', totalTxt: fmt(total, fm.moeda),
         statusTxt: total <= 0 ? 'Digite o valor' : (sp.erro ? sp.erro.replace(' para fechar o total', '').replace(' para dar 100%', '') : 'Fechou certinho'), statusCor: sp.erro || total <= 0 ? verm : verde,
         multi: fm.multi,
         paysLinhas: [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], id: 'dp-' + i, val: fm.pays[i], aria: 'Quanto ' + (i === 0 ? 'você pagou' : nomes[i] + ' pagou'), set: (ev) => { const a = fm.pays.slice(); a[i] = ev.target.value; this.setFm({ pays: a }); } })),
