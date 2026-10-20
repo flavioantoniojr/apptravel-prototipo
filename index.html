@@ -88,7 +88,7 @@ img{user-select:none;-webkit-user-drag:none}
 .num{font-weight:800}
 .pin{width:28px;height:28px;border-radius:999px;color:#FFFFFF;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex:none}
 .conn{display:flex;align-items:center;gap:6px;font-size:12px;color:#625D7C;padding:6px 0 6px 13px;border-left:2px dashed #D9D2F2;margin-left:13px}
-.toast{position:absolute;left:50%;top:56px;transform:translateX(-50%);background:#1E1840;color:#FFFFFF;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:700;z-index:8;white-space:nowrap;display:flex;align-items:center;gap:8px}
+.toast{position:absolute;left:50%;top:56px;transform:translateX(-50%);background:#1E1840;color:#FFFFFF;padding:10px 16px;border-radius:18px;font-size:13px;font-weight:700;z-index:8;width:max-content;max-width:88%;text-align:center;line-height:18px;display:flex;align-items:center;gap:8px}
 .finger{position:absolute;width:38px;height:38px;margin:-19px 0 0 -19px;border-radius:999px;background:rgba(91,61,245,.28);border:2px solid rgba(255,255,255,.95);box-shadow:0 0 0 6px rgba(91,61,245,.18);z-index:20;pointer-events:none;transition:left .55s cubic-bezier(.4,.1,.2,1), top .55s cubic-bezier(.4,.1,.2,1), transform .15s ease, opacity .25s ease}
 .finger-tap{transform:scale(.72);background:rgba(91,61,245,.5)}
 .flowbtn{display:flex;align-items:center;gap:10px;width:100%;text-align:left;padding:8px 10px;border-radius:12px;border:none;background:transparent;font-size:14px;color:#3F3A5A;cursor:pointer}
@@ -784,7 +784,7 @@ body{background:#F1EEFB}
                       <div style="flex: 1; min-width: 0">
                         <div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 11px; font-weight: 800; color: #625D7C; text-transform: uppercase; letter-spacing: .5px">{{it.cat}}</span><b style="font-size: 13px; color: #5B3DF5">{{it.hora}}</b></div>
                         <b style="font-size: 15px; display: block; margin-top: 2px">{{it.nome}}</b>
-                        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap"><span class="pill" style="background: #F3F1F9; color: #3F3A5A">{{it.dur}}</span><span class="pill" style="{{it.tagStyle}}">{{it.tag}}</span><span class="pill" style="{{it.dispStyle}}">{{it.disp}}</span></div>
+                        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap"><button class="pill" onClick="{{it.lancar}}" style="border: 1px solid #D9D2F2; background: #FFFFFF; color: #5B3DF5; cursor: pointer; font-family: inherit">+ Lançar gasto</button><span class="pill" style="background: #F3F1F9; color: #3F3A5A">{{it.dur}}</span><span class="pill" style="{{it.tagStyle}}">{{it.tag}}</span><span class="pill" style="{{it.dispStyle}}">{{it.disp}}</span></div>
                       </div>
                     </div>
                     <sc-if value="{{it.temConn}}" hint-placeholder-val="{{ true }}"><div class="conn"><img src="{{emo.footprints}}" alt="" width="16" height="16" style="display: block; flex: none">{{it.conn}}</div></sc-if>
@@ -834,8 +834,8 @@ body{background:#F1EEFB}
           <sc-if value="{{is.financas}}" hint-placeholder-val="{{ false }}">
             <div class="scr" style="padding-bottom: 0">
               <div class="topbar" style="justify-content: space-between">
-                <div><div style="font-size: 12px; color: #625D7C; font-weight: 600">Roma e Florença · 4 pessoas</div><b class="disp" style="font-size: 22px">Despesas do grupo</b></div>
-                <button class="iconbtn" aria-label="Avisos" onClick="{{go.avisos}}" style="position: relative"><img src="{{emo.bell}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{dp.temNaoLidas}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: -3px; right: -3px; min-width: 19px; height: 19px; border-radius: 999px; background: #E8445A; color: #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; padding: 0 4px">{{dp.naoLidas}}</span></sc-if></button>
+                <div><div style="font-size: 12px; color: #625D7C; font-weight: 600">Roma e Florença · 4 pessoas</div><b class="disp" style="font-size: 19px; white-space: nowrap">Despesas do grupo</b></div>
+                <div style="display: flex; gap: 8px"><button class="iconbtn" aria-label="Buscar despesas" onClick="{{dp.toggleBusca}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></button><button class="iconbtn" aria-label="Configurações do grupo" onClick="{{go.cfgGrupo}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></button><button class="iconbtn" aria-label="Avisos" onClick="{{go.avisos}}" style="position: relative"><img src="{{emo.bell}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{dp.temNaoLidas}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; top: -3px; right: -3px; min-width: 19px; height: 19px; border-radius: 999px; background: #E8445A; color: #FFFFFF; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; padding: 0 4px">{{dp.naoLidas}}</span></sc-if></button></div>
               </div>
               <div style="margin-top: 12px; border-radius: 24px; padding: 16px 18px; color: #FFFFFF; background: radial-gradient(90% 90% at 100% 0%, #FF8A6B 0%, rgba(255,138,107,0) 55%), linear-gradient(150deg,#7B5CFF,#4A2FD6); box-shadow: 0 14px 30px rgba(91,61,245,.28)">
                 <div style="font-size: 12px; font-weight: 800; opacity: .85; text-transform: uppercase; letter-spacing: .5px">Seu saldo no grupo</div>
@@ -848,9 +848,14 @@ body{background:#F1EEFB}
                 <button class="chip" style="flex: none" onClick="{{dp.abrirAcertar}}"><img src="{{emo.check}}" alt="" width="22" height="22" style="display: block">Registrar pagamento</button>
                 <button class="chip" style="flex: none" onClick="{{go.totais}}"><img src="{{emo.chart}}" alt="" width="22" height="22" style="display: block">Totais</button>
                 <button class="chip" style="flex: none" onClick="{{go.ativ}}"><img src="{{emo.restore}}" alt="" width="22" height="22" style="display: block">Atividade</button>
+                <button class="chip" style="flex: none" onClick="{{dp.abrirGraf}}"><img src="{{emo.chart}}" alt="" width="22" height="22" style="display: block">Gráficos · Pro</button>
+                <button class="chip" style="flex: none" onClick="{{go.exportar}}"><img src="{{emo.receipt}}" alt="" width="22" height="22" style="display: block">Exportar</button>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: center; gap: 8px; font-size: 12px; color: #625D7C; margin-top: 4px"><span>{{dp.limiteTxt}}</span></div>
-              <div class="grp">Novembro de 2026</div>
+              <sc-if value="{{dp.buscaOn}}" hint-placeholder-val="{{ false }}"><input id="d-busca" class="inp" style="margin-top: 8px" placeholder="Buscar por descrição" value="{{f.dBusca}}" onChange="{{dp.setBusca}}"></sc-if>
+              <sc-if value="{{dp.grupoExcl}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 14px; text-align: center; padding: 20px"><img src="{{emo.trash}}" alt="" width="48" height="48" style="display: block; margin: 0 auto"><b style="display: block; font-size: 16px; margin-top: 8px">Grupo excluído</b><p class="sub" style="font-size: 13px; margin-top: 4px">O grupo foi excluído para as 4 pessoas. Despesas e pagamentos voltam ao restaurar.</p><button class="btn btn-p" style="margin-top: 12px" onClick="{{dp.restaurarGrupo}}">Restaurar grupo</button></div></sc-if>
+              <sc-if value="{{dp.prev.on}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 10px; align-items: flex-start; margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: #FFFFFF; box-shadow: 0 4px 18px rgba(42,27,110,.07); font-size: 13px; line-height: 19px"><img src="{{emo.lock}}" alt="" width="22" height="22" style="display: block; flex: none"><span style="flex: 1"><b>Só você vê · previsto x real</b><br>Sua parte por dia até agora: <b>{{dp.prev.real}}</b>.<br>Sua faixa declarada: <b>{{dp.prev.faixa}}</b> por dia. {{dp.prev.leitura}}</span></div></sc-if>
+              <div class="grp">{{dp.listaTitulo}}</div>
               <sc-for list="{{dp.lista}}" as="e" hint-placeholder-count="3">
                 <button onClick="{{e.abrir}}" style="display: flex; align-items: center; gap: 10px; width: 100%; text-align: left; padding: 10px 0; border: none; border-bottom: 1px solid #F1EEF8; background: transparent; cursor: pointer; color: #1E1840; font-family: inherit">
                   <span style="width: 30px; text-align: center; font-size: 11px; font-weight: 700; color: #625D7C; line-height: 13px; flex: none">{{e.mes}}<b style="display: block; font-size: 17px; color: #1E1840">{{e.dia}}</b></span>
@@ -859,6 +864,7 @@ body{background:#F1EEFB}
                   <span style="text-align: right; flex: none; max-width: 96px"><span style="display: block; font-size: 11px; font-weight: 700; {{e.rCor}}">{{e.rTxt}}</span><b style="font-size: 14px; {{e.rCor}}">{{e.rVal}}</b></span>
                 </button>
               </sc-for>
+              <sc-if value="{{dp.temAcert}}" hint-placeholder-val="{{ false }}"><button onClick="{{dp.toggleAcert}}" style="margin-top: 8px; border: none; background: transparent; color: #5B3DF5; font-weight: 800; font-size: 13px; cursor: pointer; font-family: inherit">{{dp.acertTxt}}</button></sc-if>
               <sc-if value="{{dp.anuncioOn}}" hint-placeholder-val="{{ true }}">
                 <div style="display: flex; gap: 10px; align-items: center; margin-top: 12px; padding: 10px 12px; border-radius: 16px; background: #F3F1F9; font-size: 12px; color: #3F3A5A"><img src="{{emo.shield}}" alt="" width="28" height="28" style="display: block; flex: none"><span style="flex: 1"><b>Seguro viagem Europa</b> a partir de R$ 19 por dia. Cobertura exigida no Schengen.</span><span class="pill" style="background: #FFFFFF; color: #625D7C">Anúncio</span></div>
               </sc-if>
@@ -877,6 +883,7 @@ body{background:#F1EEFB}
                 <b style="font-size: 17px">{{dp.fm.titulo}}</b>
                 <button class="chip chip-on" style="flex: none" onClick="{{dp.salvar}}">Salvar</button>
               </div>
+              <sc-if value="{{dp.fm.origemOn}}" hint-placeholder-val="{{ false }}"><div style="display: flex; gap: 8px; align-items: center; margin-top: 12px; padding: 8px 12px; border-radius: 12px; background: #E4F7EE; color: #0B4D37; font-size: 13px; font-weight: 700"><img src="{{emo.map}}" alt="" width="20" height="20" style="display: block">Do roteiro: {{dp.fm.origem}}</div></sc-if>
               <div style="display: flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; color: #625D7C">Dividir com: <span class="pill" style="{{dp.fm.comStyle}}">{{dp.fm.comTxt}}</span></div>
               <div class="field"><label class="lbl" for="d-desc">Descrição</label>
                 <div style="display: flex; gap: 10px; align-items: center"><span style="width: 52px; height: 52px; border-radius: 16px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.fm.icoBg}}"><img src="{{dp.fm.emo}}" alt="" width="34" height="34" style="display: block"></span><input id="d-desc" class="inp" placeholder="Ex.: Jantar em Trastevere" value="{{f.dDesc}}" onChange="{{dp.setDesc}}"></div>
@@ -885,12 +892,22 @@ body{background:#F1EEFB}
               <div class="field"><label class="lbl" for="d-valor">Valor</label>
                 <div style="display: flex; gap: 10px"><button onClick="{{dp.trocarMoeda}}" class="chip" style="flex: none; height: 52px; min-width: 64px; justify-content: center; font-size: 16px" aria-label="Trocar moeda">{{dp.fm.simb}}</button><input id="d-valor" class="inp" inputmode="decimal" placeholder="0,00" value="{{f.dValor}}" onChange="{{dp.setValor}}"></div>
               </div>
-              <div class="card" style="margin-top: 16px; font-size: 15px; line-height: 30px; text-align: center">Pago por <button onClick="{{go.pagoPor}}" class="pill" style="border: none; cursor: pointer; background: #F0ECFF; color: #4A2FD6; font-size: 14px; font-family: inherit">{{dp.fm.pagoTxt}}</button> e dividido <button onClick="{{go.dividir}}" class="pill" style="border: none; cursor: pointer; background: #F0ECFF; color: #4A2FD6; font-size: 14px; font-family: inherit">{{dp.fm.divTxt}}</button></div>
+              <div class="card" style="margin-top: 16px; font-size: 15px; line-height: 30px; text-align: center">{{dp.fm.pagoLbl}} <button onClick="{{go.pagoPor}}" class="pill" style="border: none; cursor: pointer; background: #F0ECFF; color: #4A2FD6; font-size: 14px; font-family: inherit">{{dp.fm.pagoTxt}}</button> e dividido <button onClick="{{go.dividir}}" class="pill" style="border: none; cursor: pointer; background: #F0ECFF; color: #4A2FD6; font-size: 14px; font-family: inherit">{{dp.fm.divTxt}}</button></div>
               <div style="margin-top: 6px">
                 <sc-for list="{{dp.fm.resumo}}" as="r" hint-placeholder-count="4"><div class="li"><span style="display: flex; align-items: center; gap: 8px"><span class="av" style="width: 28px; height: 28px; font-size: 12px; {{r.av}}">{{r.ini}}</span>{{r.txt}}</span><b style="{{r.cor}}">{{r.val}}</b></div></sc-for>
               </div>
               <sc-if value="{{dp.fm.erroOn}}" hint-placeholder-val="{{ false }}"><p style="color: #B42318; font-size: 13px; font-weight: 700; margin: 8px 0 0">{{dp.fm.erro}}</p></sc-if>
-              <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap"><span class="chip" style="flex: none; cursor: default"><img src="{{emo.calendar}}" alt="" width="20" height="20" style="display: block">Hoje, 14 nov</span><span class="chip" style="flex: none; cursor: default">Repetir: só desta vez</span><span class="chip" style="flex: none; cursor: default"><img src="{{emo.camera}}" alt="" width="20" height="20" style="display: block">Foto do recibo</span></div>
+              <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap">
+                <span class="chip" style="flex: none; padding: 0 4px"><button aria-label="Dia anterior" onClick="{{dp.diaMenos}}" style="border: none; background: transparent; cursor: pointer; font-size: 18px; padding: 0 6px; color: #5B3DF5; font-family: inherit">‹</button><img src="{{emo.calendar}}" alt="" width="20" height="20" style="display: block">{{dp.fm.diaTxt}}<button aria-label="Próximo dia" onClick="{{dp.diaMais}}" style="border: none; background: transparent; cursor: pointer; font-size: 18px; padding: 0 6px; color: #5B3DF5; font-family: inherit">›</button></span>
+                <button class="{{dp.fm.repCls}}" style="flex: none" onClick="{{dp.toggleRep}}"><img src="{{emo.restore}}" alt="" width="20" height="20" style="display: block">{{dp.fm.repTxt}}</button>
+                <button class="chip" style="flex: none" onClick="{{dp.toggleCat}}"><img src="{{dp.fm.emo}}" alt="" width="20" height="20" style="display: block">{{dp.fm.catNome}}</button>
+                <button class="{{dp.fm.fotoCls}}" style="flex: none" onClick="{{dp.toggleFoto}}"><img src="{{emo.camera}}" alt="" width="20" height="20" style="display: block">{{dp.fm.fotoTxt}}</button>
+                <button class="{{dp.fm.notaCls}}" style="flex: none" onClick="{{dp.toggleNota}}"><img src="{{emo.pencil}}" alt="" width="20" height="20" style="display: block">Nota</button>
+                <button class="chip" style="flex: none" onClick="{{dp.lerRecibo}}"><img src="{{emo.receipt}}" alt="" width="20" height="20" style="display: block">Ler recibo · Pro</button>
+              </div>
+              <sc-if value="{{dp.fm.repOpen}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 8px"><div style="display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{dp.fm.repOpts}}" as="o" hint-placeholder-count="5"><button class="{{o.cls}}" style="height: 34px; padding: 0 12px; flex: none" onClick="{{o.pick}}">{{o.label}}</button></sc-for></div><sc-if value="{{dp.fm.repete}}" hint-placeholder-val="{{ false }}"><button onClick="{{dp.toggleLembrete}}" style="display: flex; align-items: center; gap: 8px; margin-top: 10px; border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 13px; color: #3F3A5A; padding: 0; text-align: left"><span style="width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.fm.lembStyle}}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>Lembrete por e-mail para todos antes de cada repetição</button><p class="hint">Repete na mesma hora do dia, para sempre, até alguém trocar para "Só desta vez".</p></sc-if></div></sc-if>
+              <sc-if value="{{dp.fm.catOpen}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 8px; display: flex; gap: 6px; flex-wrap: wrap"><sc-for list="{{dp.fm.catOpts}}" as="o" hint-placeholder-count="6"><button class="{{o.cls}}" style="height: 36px; padding: 0 10px; flex: none" onClick="{{o.pick}}"><img src="{{o.emo}}" alt="" width="20" height="20" style="display: block">{{o.label}}</button></sc-for></div></sc-if>
+              <sc-if value="{{dp.fm.notaOpen}}" hint-placeholder-val="{{ false }}"><div class="field"><label class="lbl" for="d-nota">Nota</label><input id="d-nota" class="inp" placeholder="Ex.: inclui gorjeta" value="{{f.dNota}}" onChange="{{dp.setNota}}"></div></sc-if>
               <p class="hint" style="margin-top: 12px">{{dp.limiteTxt}} Todos do grupo podem ver, editar e excluir.</p>
             </div>
           </sc-if>
@@ -924,6 +941,7 @@ body{background:#F1EEFB}
               <sc-if value="{{dp.fm.ehIgual}}" hint-placeholder-val="{{ true }}">
                 <button onClick="{{dp.fm.todosToggle}}" class="li todos" style="width: 100%; border: 2px solid #E4DFF5; cursor: pointer; font-family: inherit; padding: 10px 12px; color: #1E1840; margin-top: 10px"><span style="display: flex; align-items: center; gap: 10px"><span style="width: 26px; height: 26px; border-radius: 999px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.fm.todosStyle}}"><svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span><img src="{{emo.hug}}" alt="" width="28" height="28" style="display: block"><b style="font-size: 15px; white-space: nowrap">Todos do grupo</b></span><span class="pill" style="{{dp.fm.selStyle}}">{{dp.fm.selTxt}}</span></button>
               </sc-if>
+              <sc-if value="{{dp.fm.ehItem}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 4px"><sc-for list="{{dp.fm.itensL}}" as="it" hint-placeholder-count="3"><div class="card" style="margin-top: 8px; padding: 10px 12px"><div style="display: flex; justify-content: space-between; font-size: 14px"><b>{{it.nome}}</b><b>{{it.val}}</b></div><div style="display: flex; gap: 6px; margin-top: 8px; align-items: center"><sc-for list="{{it.pess}}" as="pp" hint-placeholder-count="4"><button onClick="{{pp.toggle}}" aria-label="{{pp.aria}}" class="av" style="width: 32px; height: 32px; font-size: 12px; cursor: pointer; font-family: inherit; {{pp.style}}">{{pp.ini}}</button></sc-for><span style="font-size: 12px; color: #625D7C; margin-left: auto">{{it.porPessoa}}</span></div></div></sc-for><p class="hint">{{dp.fm.itemTaxa}}</p><div class="grp">Total de cada pessoa</div></div></sc-if>
               <div style="margin-top: 6px">
                 <sc-for list="{{dp.fm.linhas}}" as="l" hint-placeholder-count="4">
                   <div class="li" style="padding: 8px 12px">
@@ -944,23 +962,26 @@ body{background:#F1EEFB}
           <!-- J2 · DETALHE DA DESPESA -->
           <sc-if value="{{is.detDesp}}" hint-placeholder-val="{{ false }}">
             <div class="scr">
-              <div class="topbar" style="justify-content: space-between"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div style="display: flex; gap: 8px"><button class="iconbtn" aria-label="Editar despesa" onClick="{{dp.editar}}"><img src="{{emo.pencil}}" alt="" width="24" height="24" style="display: block"></button><button class="iconbtn" aria-label="Excluir despesa" onClick="{{dp.excluir}}"><img src="{{emo.trash}}" alt="" width="24" height="24" style="display: block"></button></div></div>
+              <div class="topbar" style="justify-content: space-between"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><sc-if value="{{dp.det.podeEditar}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 8px"><button class="iconbtn" aria-label="Editar despesa" onClick="{{dp.editar}}"><img src="{{emo.pencil}}" alt="" width="24" height="24" style="display: block"></button><button class="iconbtn" aria-label="Excluir despesa" onClick="{{dp.excluir}}"><img src="{{emo.trash}}" alt="" width="24" height="24" style="display: block"></button></div></sc-if></div>
               <div style="display: flex; gap: 14px; align-items: center; margin-top: 12px">
                 <span style="width: 68px; height: 68px; border-radius: 22px; display: flex; align-items: center; justify-content: center; flex: none; {{dp.det.icoBg}}"><img src="{{dp.det.emo}}" alt="" width="46" height="46" style="display: block"></span>
                 <div style="min-width: 0"><b class="disp" style="font-size: 20px; line-height: 24px; display: block">{{dp.det.desc}}</b><div class="disp" style="font-size: 26px; font-weight: 800">{{dp.det.valorTxt}}</div><div style="font-size: 12px; color: #625D7C">{{dp.det.autorLinha}}</div></div>
               </div>
               <sc-if value="{{dp.det.agOn}}" hint-placeholder-val="{{ false }}">
-                <div style="display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFF1E3; color: #7A2E0B; font-size: 13px; line-height: 19px"><img src="{{emo.briefcase}}" alt="" width="26" height="26" style="display: block; flex: none"><span><b>Lançada pela {{dp.agNome}}</b>, dividida entre quem vai participar. Você pode editar; a agência é avisada da mudança.</span></div>
+                <div style="display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #FFF1E3; color: #7A2E0B; font-size: 13px; line-height: 19px"><img src="{{emo.briefcase}}" alt="" width="26" height="26" style="display: block; flex: none"><span><b>Lançada pela {{dp.agNome}}</b>, dividida entre quem vai participar. <b>Somente visualização:</b> a agência gerencia esta despesa no módulo dela.</span></div>
               </sc-if>
               <div class="grp">Quem pagou e quem deve</div>
               <sc-for list="{{dp.det.linhas}}" as="l" hint-placeholder-count="4"><div class="li"><span style="display: flex; align-items: center; gap: 8px"><span class="av" style="width: 30px; height: 30px; font-size: 12px; {{l.av}}">{{l.ini}}</span>{{l.txt}}</span><b style="{{l.cor}}">{{l.val}}</b></div></sc-for>
               <p class="hint">{{dp.det.tipoTxt}}</p>
-              <div class="grp">Comentários</div>
+              <sc-for list="{{dp.det.extras}}" as="x" hint-placeholder-count="2"><div class="li"><span style="display: flex; align-items: center; gap: 8px"><img src="{{x.emo}}" alt="" width="22" height="22" style="display: block">{{x.k}}</span><b style="font-size: 13px; text-align: right">{{x.v}}</b></div></sc-for>
+              <sc-if value="{{dp.det.ehDesp}}" hint-placeholder-val="{{ true }}"><div class="grp">Comentários</div></sc-if>
               <sc-for list="{{dp.det.coms}}" as="c" hint-placeholder-count="1"><div style="display: flex; gap: 8px; margin-top: 8px"><span class="av" style="width: 30px; height: 30px; font-size: 12px; {{c.av}}">{{c.ini}}</span><div style="background: #FFFFFF; border-radius: 14px; padding: 8px 12px; font-size: 14px; box-shadow: 0 2px 10px rgba(42,27,110,.06)"><b style="font-size: 12px">{{c.nome}}</b><div>{{c.txt}}</div></div></div></sc-for>
+              <sc-if value="{{dp.det.ehDesp}}" hint-placeholder-val="{{ true }}"><div>
               <sc-if value="{{dp.det.semComs}}" hint-placeholder-val="{{ true }}"><p class="hint">Nenhum comentário ainda.</p></sc-if>
               <div style="display: flex; gap: 8px; margin-top: 10px"><input id="d-coment" class="inp" placeholder="Escreva um comentário" value="{{f.dComent}}" onChange="{{dp.setComent}}"><button class="chip chip-on" style="flex: none; height: 52px" onClick="{{dp.comentar}}">Enviar</button></div>
               <div class="grp">Histórico</div>
               <sc-for list="{{dp.det.hist}}" as="h" hint-placeholder-count="1"><div style="font-size: 13px; color: #625D7C; padding: 3px 0">{{h.txt}}</div></sc-for>
+              </div></sc-if>
             </div>
           </sc-if>
 
@@ -980,7 +1001,7 @@ body{background:#F1EEFB}
           <!-- J2 · REGISTRAR PAGAMENTO -->
           <sc-if value="{{is.acertar}}" hint-placeholder-val="{{ false }}">
             <div class="scr">
-              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Registrar pagamento</b></div>
+              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">{{dp.stTitulo}}</b></div>
               <div style="display: flex; gap: 10px; margin-top: 14px; padding: 12px 14px; border-radius: 16px; background: #E4F7EE; color: #0B4D37; font-size: 13px; line-height: 19px"><img src="{{emo.lock}}" alt="" width="24" height="24" style="display: block; flex: none"><span>O app <b>só registra</b>. O dinheiro é transferido fora dele: Pix, dinheiro ou transferência.</span></div>
               <div class="lbl" style="margin-top: 16px">Quem pagou</div>
               <div style="display: flex; gap: 8px; flex-wrap: wrap"><sc-for list="{{dp.stDe}}" as="p" hint-placeholder-count="4"><button class="{{p.cls}}" onClick="{{p.pick}}"><span class="av" style="width: 26px; height: 26px; font-size: 11px; {{p.av}}">{{p.ini}}</span>{{p.nome}}</button></sc-for></div>
@@ -988,7 +1009,7 @@ body{background:#F1EEFB}
               <div style="display: flex; gap: 8px; flex-wrap: wrap"><sc-for list="{{dp.stPara}}" as="p" hint-placeholder-count="4"><button class="{{p.cls}}" onClick="{{p.pick}}"><span class="av" style="width: 26px; height: 26px; font-size: 11px; {{p.av}}">{{p.ini}}</span>{{p.nome}}</button></sc-for></div>
               <div class="field"><label class="lbl" for="d-pag">Valor</label><div style="display: flex; gap: 10px"><button onClick="{{dp.stMoeda}}" class="chip" style="flex: none; height: 52px; min-width: 64px; justify-content: center; font-size: 16px">{{dp.stSimb}}</button><input id="d-pag" class="inp" inputmode="decimal" placeholder="0,00" value="{{f.dPag}}" onChange="{{dp.setPag}}"></div></div>
               <p class="hint">{{dp.stDica}}</p>
-              <div class="cta"><button class="btn btn-p" onClick="{{dp.registrar}}">Registrar pagamento</button></div>
+              <div class="cta"><button class="btn btn-p" onClick="{{dp.registrar}}">{{dp.stBotao}}</button></div>
             </div>
           </sc-if>
 
@@ -1008,7 +1029,7 @@ body{background:#F1EEFB}
                 <div class="prog" style="margin-top: 6px"><div style="{{dp.fe.progW}}"></div></div>
               </div>
               <sc-if value="{{dp.fe.duasMoedas}}" hint-placeholder-val="{{ false }}">
-                <button onClick="{{dp.converter}}" style="display: flex; gap: 10px; align-items: center; width: 100%; margin-top: 12px; text-align: left; padding: 12px 14px; border-radius: 16px; border: none; background: #FFF6DC; color: #7A4B00; font-size: 13px; line-height: 18px; cursor: pointer; font-family: inherit"><img src="{{emo.exchange}}" alt="" width="28" height="28" style="display: block; flex: none"><span style="flex: 1">Há saldos em <b>euro e em real</b>. Se o grupo preferir acertar tudo em reais, converta pela cotação do dia.</span><span class="pill" style="background: #FFFFFF; color: #7A4B00; flex: none">Pro</span></button>
+                <button onClick="{{dp.converter}}" style="display: flex; gap: 10px; align-items: center; width: 100%; margin-top: 12px; text-align: left; padding: 12px 14px; border-radius: 16px; border: none; background: #FFF6DC; color: #7A4B00; font-size: 13px; line-height: 18px; cursor: pointer; font-family: inherit"><img src="{{emo.exchange}}" alt="" width="28" height="28" style="display: block; flex: none"><span style="flex: 1">Há saldos em <b>euro e em real</b>. Se o grupo preferir acertar tudo {{dp.fe.convAlvo}}, converta pela cotação do dia.</span><span class="pill" style="background: #FFFFFF; color: #7A4B00; flex: none">Pro</span></button>
               </sc-if>
               <sc-for list="{{dp.fe.repasses}}" as="r" hint-placeholder-count="3">
                 <div class="card" style="margin-top: 10px; {{r.cardStyle}}">
@@ -1025,7 +1046,74 @@ body{background:#F1EEFB}
                   </div>
                 </div>
               </sc-for>
+              <sc-if value="{{dp.fe.porMoeda}}" hint-placeholder-val="{{ false }}"><p class="hint" style="margin-top: 10px">Cada moeda é acertada na moeda em que foi gasta: euro com euro, real com real.</p></sc-if>
+              <div style="display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #F0ECFF; color: #3F3A5A; font-size: 13px; line-height: 19px"><img src="{{emo.bell}}" alt="" width="24" height="24" style="display: block; flex: none"><span><b>Lembrete automático:</b> ao voltar da viagem (18 nov), quem tiver repasse pendente recebe um aviso <b>a cada 3 dias</b> até tudo ficar quitado. {{dp.fe.proxLembrete}}</span></div>
+              <sc-if value="{{dp.fe.pendente}}" hint-placeholder-val="{{ true }}"><button onClick="{{dp.simLembrete}}" style="margin-top: 8px; width: 100%; border: 1px dashed #D9D2F2; background: transparent; border-radius: 14px; padding: 10px; font-size: 12px; font-weight: 700; color: #625D7C; cursor: pointer; font-family: inherit">Simular: lembrete de 21 nov</button></sc-if>
               <p class="hint" style="margin-top: 12px">Com "simplificar dívidas" ligado, o saldo final de cada pessoa não muda; só diminui o número de pagamentos.</p>
+            </div>
+          </sc-if>
+
+
+          <!-- J2 · CONFIGURAÇÕES DO GRUPO -->
+          <sc-if value="{{is.cfgGrupo}}" hint-placeholder-val="{{ false }}">
+            <div class="scr">
+              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Configurações do grupo</b></div>
+              <div style="margin-top: 12px; border-radius: 22px; padding: 16px; color: #FFFFFF; display: flex; gap: 12px; align-items: center; background: radial-gradient(90% 90% at 100% 0%, #FF8A6B 0%, rgba(255,138,107,0) 55%), linear-gradient(150deg,#7B5CFF,#4A2FD6)"><img src="{{emo.city}}" alt="" width="44" height="44" style="display: block"><div><b class="disp" style="font-size: 19px; display: block">Roma e Florença</b><span style="font-size: 13px; opacity: .9">Viagem · 13 a 18 de novembro</span></div></div>
+              <div class="grp">Pessoas no grupo</div>
+              <sc-for list="{{dp.cfg.membros}}" as="m" hint-placeholder-count="4"><div class="member"><span class="av" style="{{m.av}}">{{m.ini}}</span><div style="flex: 1"><b style="font-size: 15px">{{m.nome}}</b><div style="font-size: 12px; {{m.cor}}">{{m.saldo}}</div></div><sc-if value="{{m.podeTirar}}" hint-placeholder-val="{{ false }}"><button class="chip" style="height: 34px; padding: 0 12px; flex: none" onClick="{{m.remover}}">Remover</button></sc-if><sc-if value="{{m.removido}}" hint-placeholder-val="{{ false }}"><span class="pill" style="background: #F3F1F9; color: #625D7C">Removido</span></sc-if></div></sc-for>
+              <p class="hint">Só dá para remover quem está com saldo zero. Novas pessoas não entram: o grupo foi fechado na etapa de espera.</p>
+              <div class="grp">Opções</div>
+              <button onClick="{{dp.toggleSimp}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.sparkles}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">Simplificar dívidas</b><span style="display: block; font-size: 12px; color: #625D7C">Menos pagamentos, mesmo saldo final</span></span><span style="width: 50px; height: 30px; border-radius: 999px; position: relative; flex: none; {{dp.swBg}}"><span style="position: absolute; top: 4px; width: 22px; height: 22px; border-radius: 999px; background: #FFFFFF; {{dp.swPos}}"></span></span></button>
+              <button onClick="{{dp.togglePadrao}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.hug}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">Divisão padrão do grupo · Pro</b><span style="display: block; font-size: 12px; color: #625D7C">Toda despesa nova já vem dividida por partes</span></span><span style="width: 50px; height: 30px; border-radius: 999px; position: relative; flex: none; {{dp.cfg.padBg}}"><span style="position: absolute; top: 4px; width: 22px; height: 22px; border-radius: 999px; background: #FFFFFF; {{dp.cfg.padPos}}"></span></span></button>
+              <sc-if value="{{dp.cfg.padraoOn}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 8px"><div style="font-size: 13px; color: #625D7C; margin-bottom: 6px">Partes de cada pessoa em toda despesa nova (ex.: quem paga pelo casal com 2):</div><sc-for list="{{dp.cfg.padLinhas}}" as="l" hint-placeholder-count="4"><div style="display: flex; align-items: center; gap: 8px; padding: 4px 0"><span class="av" style="width: 28px; height: 28px; font-size: 11px; {{l.av}}">{{l.ini}}</span><span style="flex: 1">{{l.nome}}</span><input id="{{l.id}}" class="inp" style="width: 70px; height: 38px; text-align: right" inputmode="decimal" value="{{l.val}}" onChange="{{l.set}}" aria-label="{{l.aria}}"></div></sc-for></div></sc-if>
+              <button onClick="{{go.conta}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.bell}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">Sua conta e avisos</b><span style="display: block; font-size: 12px; color: #625D7C">Moeda padrão, notificação e e-mail</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#625D7C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              <button onClick="{{go.exportar}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.receipt}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">Exportar e resumo</b><span style="display: block; font-size: 12px; color: #625D7C">Planilha com todas as despesas e pagamentos</span></span><svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#625D7C" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+              <div class="grp">Zona de cuidado</div>
+              <button class="btn btn-s" style="margin-top: 6px" onClick="{{dp.sair}}">Sair do grupo</button>
+              <button class="btn" style="margin-top: 10px; background: #FDECEC; color: #B42318" onClick="{{dp.pedirExcluir}}">Excluir grupo</button>
+              <sc-if value="{{dp.cfg.confirmOn}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 10px; border: 2px solid #F5C2C0"><b style="font-size: 15px">Excluir o grupo para todos?</b><p class="sub" style="font-size: 13px; margin-top: 4px">Some para as 4 pessoas, com despesas e pagamentos. Dá para restaurar pela atividade.</p><div style="display: flex; gap: 8px; margin-top: 10px"><button class="btn btn-s" onClick="{{dp.cancelarExcluir}}">Cancelar</button><button class="btn" style="background: #B42318; color: #FFFFFF" onClick="{{dp.excluirGrupo}}">Excluir para todos</button></div></div></sc-if>
+            </div>
+          </sc-if>
+
+          <!-- J2 · CONTA E AVISOS -->
+          <sc-if value="{{is.conta}}" hint-placeholder-val="{{ false }}">
+            <div class="scr">
+              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.cfgGrupo}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Conta e avisos</b></div>
+              <div class="card" style="margin-top: 12px; display: flex; gap: 12px; align-items: center"><span class="av" style="width: 48px; height: 48px; background: linear-gradient(135deg,#7B5CFF,#FF7A6B); color: #FFFFFF">{{dp.conta.ini}}</span><div><b style="font-size: 16px">{{dp.conta.nome}}</b><div style="font-size: 13px; color: #625D7C">{{dp.conta.email}}</div></div></div>
+              <div class="lbl" style="margin-top: 16px">Moeda padrão</div>
+              <div style="display: flex; gap: 8px"><sc-for list="{{dp.conta.moedas}}" as="m" hint-placeholder-count="2"><button class="{{m.cls}}" onClick="{{m.pick}}">{{m.label}}</button></sc-for></div>
+              <p class="hint">Moeda sugerida quando o grupo ainda não tem despesas; depois, a despesa nova vem na última moeda usada no grupo. Mudar não altera despesas antigas.</p>
+              <div class="grp">Avisos</div>
+              <button onClick="{{dp.togglePush}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.bell}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">Notificação no celular</b><span style="display: block; font-size: 12px; color: #625D7C">Push quando alguém ou a agência lança, edita ou exclui</span></span><span style="width: 50px; height: 30px; border-radius: 999px; position: relative; flex: none; {{dp.conta.pushBg}}"><span style="position: absolute; top: 4px; width: 22px; height: 22px; border-radius: 999px; background: #FFFFFF; {{dp.conta.pushPos}}"></span></span></button>
+              <button onClick="{{dp.toggleEmail}}" style="display: flex; align-items: center; gap: 12px; width: 100%; margin-top: 10px; border: none; background: #FFFFFF; border-radius: 20px; padding: 12px 14px; box-shadow: 0 4px 18px rgba(42,27,110,.07); cursor: pointer; text-align: left; color: #1E1840; font-family: inherit"><img src="{{emo.envelope}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1"><b style="display: block; font-size: 15px">E-mail</b><span style="display: block; font-size: 12px; color: #625D7C">Avisos e resumo mensal por e-mail</span></span><span style="width: 50px; height: 30px; border-radius: 999px; position: relative; flex: none; {{dp.conta.mailBg}}"><span style="position: absolute; top: 4px; width: 22px; height: 22px; border-radius: 999px; background: #FFFFFF; {{dp.conta.mailPos}}"></span></span></button>
+              <p class="hint">Você só é avisado de mudanças feitas por outras pessoas. Cada aviso espera 60 segundos, para dar tempo de corrigir um erro.</p>
+              <div class="grp">Plano</div>
+              <div class="card" style="display: flex; gap: 10px; align-items: center"><img src="{{emo.ticket}}" alt="" width="28" height="28" style="display: block"><span style="flex: 1; font-size: 14px">{{dp.conta.plano}}</span></div>
+            </div>
+          </sc-if>
+
+          <!-- J2 · EXPORTAR E RESUMO -->
+          <sc-if value="{{is.exportar}}" hint-placeholder-val="{{ false }}">
+            <div class="scr">
+              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Exportar e resumo</b></div>
+              <div class="tabs"><sc-for list="{{dp.totTabs}}" as="t" hint-placeholder-count="2"><button class="{{t.cls}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div>
+              <div style="margin-top: 12px; overflow-x: auto; background: #FFFFFF; border-radius: 16px; box-shadow: 0 4px 18px rgba(42,27,110,.07)">
+                <div style="min-width: 560px; font-size: 12px">
+                  <div style="display: grid; grid-template-columns: 44px 1fr 44px 74px 62px 62px 62px 62px; gap: 6px; padding: 10px 12px; font-weight: 800; color: #3F3A5A; border-bottom: 1px solid #ECE8F6"><span>Data</span><span>Descrição</span><span>Moeda</span><span style="text-align: right">Custo</span><span style="text-align: right">Você</span><span style="text-align: right">Mãe</span><span style="text-align: right">Avó</span><span style="text-align: right">Irmão</span></div>
+                  <sc-for list="{{dp.expRows}}" as="r" hint-placeholder-count="4"><div style="display: grid; grid-template-columns: 44px 1fr 44px 74px 62px 62px 62px 62px; gap: 6px; padding: 8px 12px; border-bottom: 1px solid #F1EEF8"><span>{{r.data}}</span><span>{{r.desc}}</span><span>{{r.moeda}}</span><span style="text-align: right">{{r.custo}}</span><sc-for list="{{r.imp}}" as="v" hint-placeholder-count="4"><span style="text-align: right; font-weight: 700; {{v.cor}}">{{v.t}}</span></sc-for></div></sc-for>
+                </div>
+              </div>
+              <p class="hint">Cada coluna de pessoa mostra o efeito no saldo: positivo quando pagou, negativo quando ficou devendo. Arraste para o lado para ver tudo.</p>
+              <div class="cta"><button class="btn btn-p" onClick="{{dp.baixarCsv}}">Baixar planilha (CSV)</button><button class="btn btn-s" onClick="{{dp.resumoPdf}}">Resumo para imprimir</button></div>
+            </div>
+          </sc-if>
+
+          <!-- J2 · GRÁFICOS (PRO) -->
+          <sc-if value="{{is.graficos}}" hint-placeholder-val="{{ false }}">
+            <div class="scr">
+              <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Gastos por categoria</b></div>
+              <sc-for list="{{dp.graf}}" as="g" hint-placeholder-count="2"><div class="card" style="margin-top: 12px"><b class="disp" style="font-size: 16px">{{g.moeda}}</b><sc-for list="{{g.barras}}" as="b" hint-placeholder-count="3"><div style="margin-top: 10px"><div style="display: flex; justify-content: space-between; font-size: 13px"><span style="display: flex; align-items: center; gap: 6px"><img src="{{b.emo}}" alt="" width="18" height="18" style="display: block">{{b.nome}}</span><b>{{b.val}}</b></div><div style="height: 10px; border-radius: 10px; background: #EDE9F7; margin-top: 4px; overflow: hidden"><div style="height: 10px; border-radius: 10px; background: linear-gradient(90deg,#7B5CFF,#FF7A8A); {{b.w}}"></div></div><div style="font-size: 11px; color: #625D7C; margin-top: 2px">Sua parte: {{b.minha}}</div></div></sc-for></div></sc-for>
+              <p class="hint" style="margin-top: 12px">Recurso do passe da viagem: gastos do grupo por categoria, com a sua parte.</p>
             </div>
           </sc-if>
 
@@ -1033,6 +1121,7 @@ body{background:#F1EEFB}
           <sc-if value="{{is.totais}}" hint-placeholder-val="{{ false }}">
             <div class="scr">
               <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Totais do grupo</b></div>
+              <div class="tabs"><sc-for list="{{dp.totTabs}}" as="t" hint-placeholder-count="2"><button class="{{t.cls}}" onClick="{{t.pick}}">{{t.label}}</button></sc-for></div>
               <sc-for list="{{dp.totais}}" as="t" hint-placeholder-count="2">
                 <div class="card" style="margin-top: 14px"><b class="disp" style="font-size: 16px">{{t.moeda}}</b>
                   <sc-for list="{{t.linhas}}" as="l" hint-placeholder-count="5"><div style="display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid #F1EEF8; font-size: 14px"><span>{{l.k}}</span><b>{{l.v}}</b></div></sc-for>
@@ -1250,7 +1339,7 @@ class Component extends DCLogic {
   initial() {
     return {
       screen: 'welcome', demo: false,
-      f: { email: '', senha: '', nome: '', nasc: '', tel: '', termos: false, code: '', pessoas: 1, tipo: '', destino: '', dias: 5, faixa: -1, cidadeAtend: '', dDesc: '', dValor: '', dComent: '', dPag: '' },
+      f: { email: '', senha: '', nome: '', nasc: '', tel: '', termos: false, code: '', pessoas: 1, tipo: '', destino: '', dias: 5, faixa: -1, cidadeAtend: '', dDesc: '', dValor: '', dComent: '', dPag: '', dNota: '', dBusca: '' },
       cidadesSel: { Roma: true }, joined: 1, agencia: -1, semAgencia: false, ini: null, fim: null, photoIdx: 0, detail: false,
       deckIdx: 0, hist: [], likesG: 0, likesP: 0, anim: '', dragX: 0, dragging: false,
       dp: this.despInit(),
@@ -1339,14 +1428,18 @@ class Component extends DCLogic {
       ['addDesp', 'Adicionar despesa', 'Qualquer pessoa do grupo lança. A descrição sugere a categoria. Toque em "você" ou "igualmente" na frase "Pago por você e dividido igualmente" para mudar. Plano grátis: até 4 por dia.'],
       ['pagoPor', 'Quem pagou', 'Uma pessoa ou várias, com o valor de cada; a soma tem que bater com o total.'],
       ['dividir', 'Como dividir', 'Igual (tocar no nome tira a pessoa: ex.: despesa só de 2 pessoas), valores, %, partes e ajuste. Por item é recurso pago.'],
-      ['detDesp', 'Detalhe da despesa', 'Quem pagou, a parte de cada um, comentários e histórico. Todos do grupo podem editar e excluir; despesa da agência avisa a agência.'],
+      ['detDesp', 'Detalhe da despesa', 'Quem pagou, a parte de cada um, comentários e histórico. Todos do grupo editam e excluem; despesa da agência é só para visualizar.'],
       ['avisos', 'Avisos (sininho)', 'Notificações push e lista de avisos. Quando a agência lança uma despesa, o cliente é avisado de que foi a agência.'],
       ['saldos', 'Saldos', 'Saldo de cada pessoa por moeda e quem paga quem. "Simplificar dívidas" reduz o número de pagamentos sem mudar o saldo final.'],
       ['acertar', 'Registrar pagamento', 'Só registro: o dinheiro vai por fora (Pix, dinheiro). Pode ser parcial; excluir o registro desfaz.'],
-      ['fechamento', 'Fechar as contas', 'Acerto final da viagem: menor número de repasses de quem deve para quem. Cada um paga fora e marca como pago até a viagem ficar quitada.'],
+      ['fechamento', 'Fechar as contas', 'Acerto final: menor número de repasses, cada moeda na moeda gasta. Depois da volta, lembrete a cada 3 dias até quitar.'],
+      ['cfgGrupo', 'Configurações do grupo', 'Pessoas (remover só com saldo zero), simplificar dívidas, divisão padrão (Pro), sair e excluir o grupo, com restauração pela atividade.'],
+      ['conta', 'Conta e avisos', 'Moeda padrão (usada na conversão) e avisos por push e e-mail: só de mudanças de outras pessoas, com 60 segundos de espera.'],
+      ['exportar', 'Exportar e resumo', 'Planilha com uma linha por lançamento e o efeito no saldo de cada pessoa; resumo do mês ou desde o início.'],
+      ['graficos', 'Gráficos (Pro)', 'Gastos do grupo por categoria, com a sua parte. Recurso do passe da viagem.'],
       ['totais', 'Totais', 'Ferramenta de orçamento por moeda: gasto do grupo, quanto você pagou e a sua parte.'],
       ['ativ', 'Atividade', 'Registro de tudo, que não pode ser apagado. Despesa excluída é restaurada daqui.'],
-      ['passe', 'Passe da viagem', 'Mesmo mecanismo do Splitwise Pro, por viagem e para o grupo todo: sem limite diário, conversão de moedas, por item, sem anúncios.']
+      ['passe', 'Passe da viagem', 'Mesmo mecanismo do Splitwise Pro, por viagem e para o grupo todo: sem limite diário, por item e recibo, busca, gráficos e sem anúncios.']
     ];
   }
 
@@ -1475,12 +1568,17 @@ class Component extends DCLogic {
       { x: 84, y: 8, run: () => { dv().salvar(); return 1600; } },
       { x: 65, y: 36, run: g('saldos', 2600) },
       { x: 12, y: 8, run: g('financas', 800) },
+      { x: 50, y: 94, run: () => { dv().novo(); return 2400; } },
+      { x: 50, y: 86, run: () => { dv().ativarPasse(); return 1800; } },
       { x: 28, y: 36, run: g('fechamento', 2600) },
-      { x: 50, y: 44, run: () => { dv().converter(); return 1800; } },
-      { x: 50, y: 86, run: () => { dv().ativarPasse(); return 2600; } },
-      { x: 77, y: 48, run: () => { pagar(); return 1100; } },
-      { x: 77, y: 62, run: () => { pagar(); return 1100; } },
-      { x: 77, y: 76, run: () => { pagar(); return 2800; } }
+      { x: 77, y: 48, run: () => { pagar(); return 900; } },
+      { x: 77, y: 55, run: () => { pagar(); return 900; } },
+      { x: 77, y: 62, run: () => { pagar(); return 900; } },
+      { x: 50, y: 50, run: () => { dv().simLembrete(); return 2600; } },
+      { x: 50, y: 7, run: () => { dv().abrirPush(); return 1200; } },
+      { x: 77, y: 69, run: () => { pagar(); return 900; } },
+      { x: 77, y: 76, run: () => { pagar(); return 900; } },
+      { x: 77, y: 83, run: () => { pagar(); return 2800; } }
     ];
   }
 
@@ -1524,12 +1622,55 @@ class Component extends DCLogic {
         { t: 'ag', quem: 'ag', desc: 'Pacote Roma · hotel 5 noites', extra: 'Sua parte: R$ 2.400,00.', quando: '12 nov' }
       ],
       notifs: [], push: null, simp: true, pro: false, hoje: 2, seq: 3, fm: null, sel: 'e1',
-      st: { de: 3, para: 0, moeda: 'EUR' }, motivo: 'limite', pagos: []
+      st: { de: 3, para: 0, moeda: 'EUR', editId: null }, motivo: 'limite', pagos: [], mostrarAcert: false, buscaOn: false, totFiltro: 'mes',
+      cfg: { membros: [true, true, true, true], excluido: false, confirmOn: false, padrao: false, padraoVals: ['2', '1', '1', '1'], push: true, email: true, moedaPadrao: 'BRL' }
     };
+  }
+  dCats() {
+    return { comida: ['spaghetti', 'Comida e bebida', 'background: #FFF1E3'], transporte: ['taxi', 'Transporte', 'background: #FFF6DC'], hospedagem: ['hotel', 'Hospedagem', 'background: #F0ECFF'], passeio: ['scooter', 'Passeios', 'background: #E4F7EE'], ingresso: ['ticket', 'Ingressos', 'background: #FFE9EF'], geral: ['receipt', 'Geral', 'background: #F3F1F9'] };
+  }
+  dCatKey(desc) {
+    const d = (desc || '').toLowerCase();
+    if (/jantar|almo|restaur|pizza|massa|gelato|caf|bar |vinho|trattoria/.test(d)) return 'comida';
+    if (/t[aá]xi|uber|trem|metr|nibus|carro|transfer/.test(d)) return 'transporte';
+    if (/hotel|pacote|hosped|airbnb/.test(d)) return 'hospedagem';
+    if (/vespa|scooter|moto/.test(d)) return 'passeio';
+    if (/ingresso|museu|coliseu|entrada|passeio|tour|vaticano|aula/.test(d)) return 'ingresso';
+    return 'geral';
+  }
+  dCat(desc, key) { return this.dCats()[key || this.dCatKey(desc)]; }
+  dRecibo() {
+    return [{ n: 'Cacio e pepe', v: 16, quem: [true, false, false, false] }, { n: 'Carbonara', v: 18, quem: [false, true, false, false] }, { n: 'Saltimbocca', v: 24, quem: [false, false, true, false] }, { n: 'Tiramisù', v: 9, quem: [false, false, false, true] }, { n: 'Vinho da casa (garrafa)', v: 28, quem: [true, true, true, true] }];
+  }
+  dProxima(e) {
+    const d = e.dia || 14;
+    if (e.repete === 'semanal') return d + 7 > 30 ? (d + 7 - 30) + ' dez' : (d + 7) + ' nov';
+    if (e.repete === 'quinzenal') return d + 14 > 30 ? (d + 14 - 30) + ' dez' : (d + 14) + ' nov';
+    if (e.repete === 'mensal') return d + ' dez';
+    if (e.repete === 'anual') return d + ' nov 2027';
+    return '';
+  }
+  dRepLabel(k) { return { nunca: 'Só desta vez', semanal: 'Semanal', quinzenal: 'Quinzenal', mensal: 'Mensal', anual: 'Anual' }[k || 'nunca']; }
+  dPro(motivo) { if (this.state.dp.pro) return true; this.setDp({ motivo: motivo }); this.go('passe'); return false; }
+  dSetCfg(p) { this.setDp({ cfg: Object.assign({}, this.state.dp.cfg, p) }); }
+  dCsv() {
+    const D = this.state.dp; const nomes = ['Você', 'Mãe', 'Avó', 'Irmão'];
+    const linhas = [['Data', 'Descrição', 'Categoria', 'Moeda', 'Custo'].concat(nomes).join(';')];
+    D.exps.filter((e) => !e.del).forEach((e) => {
+      const imp = e.pay ? [0, 1, 2, 3].map((i) => i === e.de ? e.valor : (i === e.para ? -e.valor : 0)) : e.paid.map((v, i) => v - e.owed[i]);
+      linhas.push([e.dia + '/11/2026', e.pay ? 'Pagamento: ' + e.desc : e.desc, e.pay ? 'Pagamento' : this.dCat(e.desc, e.cat)[1], e.moeda, String(e.valor).replace('.', ',')].concat(imp.map((v) => String(Math.round(v * 100) / 100).replace('.', ','))).join(';'));
+    });
+    return linhas.join('\n');
   }
   setDp(p) { this.setState({ dp: Object.assign({}, this.state.dp, p) }); }
   setFm(p) { this.setDp({ fm: Object.assign({}, this.state.dp.fm || this.novoForm(), p) }); }
-  novoForm() { return { id: null, moeda: 'EUR', payer: 0, multi: false, pays: ['', '', '', ''], tipo: 'igual', part: [true, true, true, true], vals: { exato: ['', '', '', ''], pct: ['25', '25', '25', '25'], partes: ['1', '1', '1', '1'], ajuste: ['0', '0', '0', '0'] } }; }
+  novoForm() {
+    const cfg = (this.state.dp && this.state.dp.cfg) || { membros: [true, true, true, true] }; const pro = this.state.dp && this.state.dp.pro;
+    const ult = ((this.state.dp && this.state.dp.exps) || []).filter((x) => !x.pay && !x.del).slice(-1)[0];
+    const fm = { id: null, moeda: ult ? ult.moeda : 'EUR', payer: 0, multi: false, pays: ['', '', '', ''], tipo: 'igual', part: cfg.membros.slice(), vals: { exato: ['', '', '', ''], pct: ['25', '25', '25', '25'], partes: ['1', '1', '1', '1'], ajuste: ['0', '0', '0', '0'], reemb: ['', '', '', ''] }, repete: 'nunca', lembrete: false, dia: 14, foto: false, cat: null, itens: null, repOpen: false, catOpen: false, notaOpen: false };
+    if (cfg.padrao && pro) { fm.tipo = 'partes'; fm.vals.partes = cfg.padraoVals.map((v, i) => cfg.membros[i] ? v : '0'); }
+    return fm;
+  }
   dNum(x) { const v = parseFloat(String(x == null ? '' : x).replace(/\s/g, '').replace(',', '.')); return isNaN(v) ? 0 : v; }
   dFmt(v, m) { return (m === 'EUR' ? '€ ' : 'R$ ') + Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
   dSplit(fm, total) {
@@ -1548,6 +1689,14 @@ class Component extends DCLogic {
     } else if (fm.tipo === 'partes') {
       const sh = n4.map((i) => Math.max(0, this.dNum(fm.vals.partes[i]))); const ss = sum(sh);
       if (ss <= 0) erro = 'Dê pelo menos 1 parte a alguém.'; else owed = sh.map((v) => r2(total * v / ss));
+    } else if (fm.tipo === 'reemb') {
+      owed = n4.map((i) => r2(this.dNum((fm.vals.reemb || [])[i]))); const d = r2(total - sum(owed));
+      if (Math.abs(d) > 0.004) erro = d > 0 ? 'Faltam ' + this.dFmt(d, fm.moeda) + ' para fechar o total.' : 'Passou ' + this.dFmt(-d, fm.moeda) + ' do total.';
+    } else if (fm.tipo === 'item') {
+      const its = fm.itens || []; const sub = sum(its.map((x) => x.v)); const base = [0, 0, 0, 0];
+      if (its.some((x) => !x.quem.some((q) => q))) erro = 'Há item sem ninguém marcado.';
+      else if (sub <= 0) erro = 'Nenhum item lido.';
+      else { its.forEach((x) => { const q = n4.filter((i) => x.quem[i]); q.forEach((i) => { base[i] += x.v / q.length; }); }); owed = base.map((v) => r2(v * total / sub)); }
     } else if (fm.tipo === 'ajuste') {
       const a = n4.map((i) => this.dNum(fm.vals.ajuste[i])); const base = (total - sum(a)) / 4; owed = a.map((v) => r2(base + v));
       if (owed.some((v) => v < 0)) erro = 'O ajuste deixou alguém com parte negativa.';
@@ -1595,15 +1744,6 @@ class Component extends DCLogic {
     });
     return out;
   }
-  dCat(desc) {
-    const d = (desc || '').toLowerCase();
-    if (/jantar|almo|restaur|pizza|massa|gelato|caf|bar |vinho/.test(d)) return ['spaghetti', 'Comida e bebida', 'background: #FFF1E3'];
-    if (/t[aá]xi|uber|trem|metr|nibus|carro|transfer/.test(d)) return ['taxi', 'Transporte', 'background: #FFF6DC'];
-    if (/hotel|pacote|hosped|airbnb/.test(d)) return ['hotel', 'Hospedagem', 'background: #F0ECFF'];
-    if (/vespa|scooter|moto/.test(d)) return ['scooter', 'Entretenimento', 'background: #E4F7EE'];
-    if (/ingresso|museu|coliseu|entrada|passeio|tour|vaticano|aula/.test(d)) return ['ticket', 'Entretenimento', 'background: #FFE9EF'];
-    return ['receipt', 'Geral', 'background: #F3F1F9'];
-  }
   dAddAtiv(a) { return [Object.assign({ quando: '14 nov' }, a)].concat(this.state.dp.ativ); }
   agenciaLanca() {
     if (this.state.agencia < 0) this.setState({ agencia: 0, semAgencia: false });
@@ -1612,12 +1752,13 @@ class Component extends DCLogic {
     const e = { id: 'eAg', desc: 'Passeio guiado no Vaticano', valor: 105, moeda: 'EUR', paid: [0, 105, 0, 0], owed: [35, 35, 0, 35], tipo: 'igual', autor: 'ag', dia: 14, coms: [], hist: ['Lançada em 14 nov · pago por Mãe'], del: false };
     const nome = 'Agência exemplo ' + 'ABC'[Math.max(0, this.state.agencia)];
     const n = { id: 'n' + D.seq, ref: 'eAg', titulo: nome + ' adicionou uma despesa', txt: 'Passeio guiado no Vaticano · € 105,00, dividido entre 3 pessoas. Sua parte: € 35,00.', quando: 'agora', nova: true, ag: true };
-    this.setDp({ exps: D.exps.concat([e]), notifs: [n].concat(D.notifs), push: n, seq: D.seq + 1, ativ: this.dAddAtiv({ t: 'ag', quem: 'ag', desc: e.desc, extra: 'Sua parte: € 35,00. Avó não participa.' }) });
+    this.setDp({ exps: D.exps.concat([e]), notifs: [n].concat(D.notifs), push: D.cfg.push ? n : null, seq: D.seq + 1, ativ: this.dAddAtiv({ t: 'ag', quem: 'ag', desc: e.desc, extra: 'Sua parte: € 35,00. Avó não participa.' }) });
     this.later(() => { if (this.state.dp.push && this.state.dp.push.id === n.id && !this.state.demo) this.setDp({ push: null }); }, 6000);
     return 900;
   }
   abrirNotif(id) {
     const D = this.state.dp; const n = D.notifs.find((x) => x.id === id);
+    if (n && n.lembrete) { this.setDp({ push: null, notifs: D.notifs.map((x) => x.id === id ? Object.assign({}, x, { nova: false }) : x) }); this.go('fechamento'); return; }
     this.setDp({ push: null, notifs: D.notifs.map((x) => x.id === id ? Object.assign({}, x, { nova: false }) : x), sel: n ? n.ref : D.sel });
     this.go('detDesp');
   }
@@ -1627,35 +1768,47 @@ class Component extends DCLogic {
     if (!desc || total <= 0) { this.showToast('Preencha descrição e valor'); return; }
     const sp = this.dSplit(fm, total); if (sp.erro) { this.showToast('Confira a divisão'); this.go('dividir'); return; }
     let paid = [0, 0, 0, 0];
-    if (fm.multi) { paid = fm.pays.map((v) => this.dNum(v)); if (Math.abs(paid.reduce((a, b) => a + b, 0) - total) > 0.004) { this.showToast('A soma de quem pagou não bate'); this.go('pagoPor'); return; } } else paid[fm.payer] = total;
+    if (fm.tipo === 'reemb') { paid = sp.owed.slice(); sp.owed = [0, 0, 0, 0]; sp.owed[fm.payer] = total; }
+    else if (fm.multi) { paid = fm.pays.map((v) => this.dNum(v)); if (Math.abs(paid.reduce((a, b) => a + b, 0) - total) > 0.004) { this.showToast('A soma de quem pagou não bate'); this.go('pagoPor'); return; } } else paid[fm.payer] = total;
     const meu = paid[0] - sp.owed[0];
     const extra = meu > 0.004 ? 'Você emprestou ' + this.dFmt(meu, fm.moeda) + '.' : (meu < -0.004 ? 'Sua parte: ' + this.dFmt(-meu, fm.moeda) + '.' : 'Você não está nesta despesa.');
-    const quem = sp.owed.map((v, i) => v > 0 ? i : -1).filter((i) => i >= 0);
+    const quem = (fm.tipo === 'reemb' ? paid : sp.owed).map((v, i) => v > 0 ? i : -1).filter((i) => i >= 0);
+    const extras = { origem: fm.origem || null, repete: fm.repete, lembrete: fm.lembrete, dia: fm.dia, foto: fm.foto, cat: fm.cat, nota: (s.f.dNota || '').trim(), itens: fm.itens };
     if (fm.id) {
-      const exps = D.exps.map((e) => e.id === fm.id ? Object.assign({}, e, { desc: desc, valor: total, moeda: fm.moeda, paid: paid, owed: sp.owed, tipo: fm.tipo, fmSnap: fm, hist: e.hist.concat(['Editada por você em 14 nov' + (e.autor === 'ag' ? ' · a agência foi avisada' : '')]) }) : e);
+      const old = D.exps.find((x) => x.id === fm.id); const mud = [];
+      if (old.desc !== desc) mud.push('descrição "' + old.desc + '" → "' + desc + '"');
+      if (old.valor !== total || old.moeda !== fm.moeda) mud.push('valor ' + this.dFmt(old.valor, old.moeda) + ' → ' + this.dFmt(total, fm.moeda));
+      if (JSON.stringify(old.owed) !== JSON.stringify(sp.owed) || JSON.stringify(old.paid) !== JSON.stringify(paid)) mud.push('divisão alterada');
+      if ((old.repete || 'nunca') !== fm.repete) mud.push('repetição: ' + this.dRepLabel(fm.repete).toLowerCase());
+      if ((old.nota || '') !== extras.nota) mud.push('nota');
+      const exps = D.exps.map((e) => e.id === fm.id ? Object.assign({}, e, extras, { desc: desc, valor: total, moeda: fm.moeda, paid: paid, owed: sp.owed, tipo: fm.tipo, fmSnap: fm, hist: e.hist.concat(['Editada por você em 14 nov: ' + (mud.length ? mud.join('; ') : 'sem mudanças') + (e.autor === 'ag' ? ' · a agência foi avisada' : '')]) }) : e);
       this.setDp({ exps: exps, fm: null, ativ: this.dAddAtiv({ t: 'edit', quem: 0, desc: desc }) });
       this.go('detDesp'); this.showToast(D.exps.find((e) => e.id === fm.id).autor === 'ag' ? 'Salvo. A agência foi avisada.' : 'Despesa atualizada'); return;
     }
     const id = 'e' + D.seq;
-    const e = { id: id, desc: desc, valor: total, moeda: fm.moeda, paid: paid, owed: sp.owed, tipo: fm.tipo, autor: 0, dia: 14, coms: [], hist: ['Adicionada por você em 14 nov'], del: false, fmSnap: fm, nPessoas: quem.length };
+    const e = Object.assign({ id: id, desc: desc, valor: total, moeda: fm.moeda, paid: paid, owed: sp.owed, tipo: fm.tipo, autor: 0, coms: [], hist: ['Adicionada por você em ' + fm.dia + ' nov' + (fm.repete !== 'nunca' ? ' · repete: ' + this.dRepLabel(fm.repete).toLowerCase() : '')], del: false, fmSnap: fm, nPessoas: quem.length }, extras);
     this.setDp({ exps: D.exps.concat([e]), fm: null, seq: D.seq + 1, hoje: D.hoje + 1, sel: id, ativ: this.dAddAtiv({ t: 'add', quem: 0, desc: desc, extra: extra }) });
-    this.go('financas'); this.showToast(quem.length === 4 ? 'Despesa adicionada para o grupo todo' : 'Despesa adicionada para ' + quem.length + ' pessoas');
+    this.setF({ dNota: '' }); this.go('financas'); this.showToast(fm.tipo === 'reemb' ? 'Reembolso registrado' : (quem.length === 4 ? 'Despesa adicionada para o grupo todo' : 'Despesa adicionada para ' + quem.length + ' pessoas'));
   }
   dRegistrar(de, para, valor, moeda, volta) {
     const D = this.state.dp; const nomes = ['Você', 'Mãe', 'Avó', 'Irmão'];
     if (de === para || !(valor > 0)) { this.showToast('Escolha pessoas diferentes e um valor'); return; }
-    const p = { id: 'p' + D.seq, pay: true, de: de, para: para, valor: Math.round(valor * 100) / 100, moeda: moeda, dia: 14, autor: 0, del: false };
     const txt = nomes[de] + ' pagou ' + this.dFmt(valor, moeda) + ' a ' + (para === 0 ? 'você' : nomes[para]);
+    const p = { id: 'p' + D.seq, pay: true, de: de, para: para, valor: Math.round(valor * 100) / 100, moeda: moeda, dia: 14, autor: 0, del: false, desc: txt };
+    if (D.st.editId) {
+      this.setDp({ exps: D.exps.map((x) => x.id === D.st.editId ? Object.assign({}, x, { de: de, para: para, valor: p.valor, moeda: moeda, desc: txt }) : x), st: Object.assign({}, D.st, { editId: null }), ativ: this.dAddAtiv({ t: 'edit', quem: 0, desc: 'pagamento: ' + txt }) });
+      this.showToast('Pagamento atualizado'); this.go('financas'); return;
+    }
     this.setDp({ exps: D.exps.concat([p]), seq: D.seq + 1, ativ: this.dAddAtiv({ t: 'pay', quem: 0, desc: txt }), pagos: volta === 'fechamento' ? D.pagos.concat([{ de: de, para: para, valor: p.valor, moeda: moeda }]) : D.pagos });
     this.showToast('Pagamento registrado'); this.go(volta || 'financas');
   }
   dConverter() {
     const D = this.state.dp;
     if (!D.pro) { this.setDp({ motivo: 'conv' }); this.go('passe'); return; }
-    const k = 6.2; const r2 = (v) => Math.round(v * 100) / 100;
-    const exps = D.exps.map((e) => e.moeda !== 'EUR' ? e : (e.pay ? Object.assign({}, e, { moeda: 'BRL', valor: r2(e.valor * k) }) : Object.assign({}, e, { moeda: 'BRL', valor: r2(e.valor * k), paid: e.paid.map((v) => r2(v * k)), owed: e.owed.map((v) => r2(v * k)) })));
-    this.setDp({ exps: exps, ativ: this.dAddAtiv({ t: 'conv', quem: 0, desc: 'converteu as despesas em euro para real (cotação de exemplo: € 1 = R$ 6,20).' }) });
-    this.showToast('Tudo convertido para R$');
+    const alvo = D.cfg.moedaPadrao; const de = alvo === 'BRL' ? 'EUR' : 'BRL'; const k = alvo === 'BRL' ? 6.2 : 1 / 6.2; const r2 = (v) => Math.round(v * 100) / 100;
+    const exps = D.exps.map((e) => e.moeda !== de ? e : (e.pay ? Object.assign({}, e, { moeda: alvo, valor: r2(e.valor * k) }) : Object.assign({}, e, { moeda: alvo, valor: r2(e.valor * k), paid: e.paid.map((v) => r2(v * k)), owed: e.owed.map((v) => r2(v * k)) })));
+    this.setDp({ exps: exps, ativ: this.dAddAtiv({ t: 'conv', quem: 0, desc: 'converteu as despesas para ' + (alvo === 'BRL' ? 'real' : 'euro') + ' (cotação de exemplo: € 1 = R$ 6,20).' }) });
+    this.showToast('Tudo convertido para ' + (alvo === 'BRL' ? 'R$' : '€'));
   }
   despVals() {
     const s = this.state; const f = s.f; const D = s.dp; const self = this;
@@ -1664,60 +1817,69 @@ class Component extends DCLogic {
     const agNome = s.agencia >= 0 ? 'Agência exemplo ' + 'ABC'[s.agencia] : null;
     const fmt = (v, m) => this.dFmt(v, m); const verde = 'color: #0E6B4C'; const verm = 'color: #C4320A'; const cinza = 'color: #625D7C';
     const autorTxt = (a) => a === 'ag' ? (agNome || 'Você') : nomes[a];
+    const cfg = D.cfg; const ativos = [0, 1, 2, 3].filter((i) => cfg.membros[i]);
     const net = this.dNet(D.exps); const moedas = Object.keys(net).sort();
     const meuSaldo = moedas.map((m) => { const v = net[m][0]; return { txt: v > 0.004 ? 'Te devem ' + fmt(v, m) : (v < -0.004 ? 'Você deve ' + fmt(v, m) : 'Tudo certo em ' + (m === 'EUR' ? 'euro' : 'real')) }; });
-    const vivos = D.exps.filter((e) => !e.del).slice().reverse();
+    const soMinha = (e) => !e.pay && e.owed.every((v, i) => i === 0 || v <= 0) && e.paid.every((v, i) => i === 0 || v <= 0);
+    const busca = D.buscaOn ? (f.dBusca || '').toLowerCase().trim() : '';
+    const nAcert = D.exps.filter((e) => !e.del && soMinha(e)).length;
+    const vivos = cfg.excluido ? [] : D.exps.filter((e) => !e.del && (D.mostrarAcert || !soMinha(e)) && (!busca || (e.desc || '').toLowerCase().indexOf(busca) >= 0)).slice().sort((a, b) => (b.dia || 0) - (a.dia || 0));
     const lista = vivos.map((e) => {
-      const base = { mes: 'nov', dia: e.dia, abrir: () => { if (e.pay) return; this.setDp({ sel: e.id }); this.go('detDesp'); } };
+      const base = { mes: 'nov', dia: e.dia, abrir: () => { this.setDp({ sel: e.id }); this.go('detDesp'); } };
       if (e.pay) return Object.assign(base, { emo: EMO.wings, icoBg: 'background: #E4F7EE', titulo: (e.de === 0 ? 'Você' : nomes[e.de]) + ' pagou ' + (e.para === 0 ? 'você' : nomes[e.para]), sub: 'Pagamento registrado · feito fora do app', agOn: false, agTxt: '', rTxt: 'pagamento', rVal: fmt(e.valor, e.moeda), rCor: cinza });
-      const c = this.dCat(e.desc); const pagou = e.paid.map((v, i) => v > 0 ? i : -1).filter((i) => i >= 0);
+      const c = this.dCat(e.desc, e.cat); const pagou = e.paid.map((v, i) => v > 0 ? i : -1).filter((i) => i >= 0);
       const me = e.paid[0] - e.owed[0]; const env = e.paid[0] > 0 || e.owed[0] > 0;
       const quantos = e.owed.filter((v) => v > 0).length;
       return Object.assign(base, {
         emo: EMO[c[0]], icoBg: c[2], titulo: e.desc,
-        sub: (pagou.length > 1 ? pagou.length + ' pessoas pagaram ' : (pagou[0] === 0 ? 'Você pagou ' : nomes[pagou[0]] + ' pagou ')) + fmt(e.valor, e.moeda) + (quantos < 4 ? ' · ' + quantos + ' pessoas' : ''),
+        sub: e.tipo === 'reemb' ? 'Reembolso · ' + (e.owed[0] > 0 ? 'você devolve ' : nomes[e.owed.findIndex((v) => v > 0)] + ' devolve ') + fmt(e.valor, e.moeda) : (e.repete && e.repete !== 'nunca' ? '↻ ' : '') + (pagou.length > 1 ? pagou.length + ' pessoas pagaram ' : (pagou[0] === 0 ? 'Você pagou ' : nomes[pagou[0]] + ' pagou ')) + fmt(e.valor, e.moeda) + (quantos < 4 ? ' · ' + quantos + ' pessoas' : ''),
         agOn: e.autor === 'ag' && !!agNome, agTxt: 'Lançada pela agência',
-        rTxt: !env ? 'fora desta despesa' : (me > 0.004 ? 'você emprestou' : (me < -0.004 ? 'você deve' : 'acertado')),
+        rTxt: !env ? 'fora desta despesa' : (e.tipo === 'reemb' ? (me > 0.004 ? 'você recebe' : 'você devolve') : (me > 0.004 ? 'você emprestou' : (me < -0.004 ? 'você deve' : 'acertado'))),
         rVal: !env ? '' : fmt(me, e.moeda), rCor: !env ? cinza : (me > 0.004 ? verde : (me < -0.004 ? verm : cinza))
       });
     });
     // formulário
-    const fm = D.fm || this.novoForm(); const total = this.dNum(f.dValor); const sp = this.dSplit(fm, total); const cat = this.dCat(f.dDesc);
-    const tiposDef = [['igual', 'Igual'], ['exato', 'Valores'], ['pct', '%'], ['partes', 'Partes'], ['ajuste', 'Ajuste'], ['item', 'Por item · Pro']];
-    const divTxt = { igual: fm.part.every((x) => x) ? 'igualmente' : 'igualmente (' + fm.part.filter((x) => x).length + ' pessoas)', exato: 'por valores', pct: 'por %', partes: 'por partes', ajuste: 'por ajuste' }[fm.tipo];
-    const paidPrev = fm.multi ? fm.pays.map((v) => this.dNum(v)) : [0, 1, 2, 3].map((i) => i === fm.payer ? total : 0);
+    const fm = D.fm || this.novoForm(); const total = this.dNum(f.dValor); const sp = this.dSplit(fm, total); const cat = this.dCat(f.dDesc, fm.cat);
+    const tiposDef = [['igual', 'Igual'], ['exato', 'Valores'], ['pct', '%'], ['partes', 'Partes'], ['ajuste', 'Ajuste'], ['reemb', 'Reembolso'], ['item', 'Por item · Pro']];
+    const divTxt = { igual: fm.part.every((x) => x) ? 'igualmente' : 'igualmente (' + fm.part.filter((x) => x).length + ' pessoas)', exato: 'por valores', pct: 'por %', partes: 'por partes', ajuste: 'por ajuste', reemb: 'como reembolso', item: 'por item' }[fm.tipo];
+    const ehReemb = fm.tipo === 'reemb';
+    const paidPrev = ehReemb ? sp.owed.slice() : (fm.multi ? fm.pays.map((v) => this.dNum(v)) : [0, 1, 2, 3].map((i) => i === fm.payer ? total : 0));
+    const owedPrev = ehReemb ? [0, 1, 2, 3].map((i) => i === fm.payer ? total : 0) : sp.owed;
     const resumo = [0, 1, 2, 3].map((i) => {
-      const liq = paidPrev[i] - sp.owed[i];
+      const liq = paidPrev[i] - owedPrev[i];
       const txt = i === 0 ? 'Você' : nomes[i];
-      if (sp.owed[i] <= 0 && paidPrev[i] <= 0) return { av: avs[i], ini: inis[i], txt: txt + ' · fora desta despesa', val: '', cor: cinza };
-      return { av: avs[i], ini: inis[i], txt: txt + (liq > 0.004 ? ' recebe' : (liq < -0.004 ? ' deve' : ' · parte')), val: total > 0 ? fmt(liq > 0.004 || liq < -0.004 ? liq : sp.owed[i], fm.moeda) : '—', cor: liq > 0.004 ? verde : (liq < -0.004 ? verm : cinza) };
+      if (owedPrev[i] <= 0 && paidPrev[i] <= 0) return { av: avs[i], ini: inis[i], txt: txt + ' · fora desta despesa', val: '', cor: cinza };
+      return { av: avs[i], ini: inis[i], txt: txt + (liq > 0.004 ? ' recebe' : (liq < -0.004 ? (ehReemb ? ' devolve' : ' deve') : ' · parte')), val: total > 0 ? fmt(liq > 0.004 || liq < -0.004 ? liq : owedPrev[i], fm.moeda) : '—', cor: liq > 0.004 ? verde : (liq < -0.004 ? verm : cinza) };
     });
     const sumPays = paidPrev.reduce((a, b) => a + b, 0);
-    const dicas = { igual: 'Toque no nome para tirar a pessoa desta despesa. O valor é dividido igual entre quem ficou.', exato: 'Digite quanto cada pessoa paga. A soma tem que bater com o total.', pct: 'Digite o % de cada pessoa. A soma tem que dar 100%.', partes: 'Ex.: quem paga pelo casal fica com 2 partes e o parceiro com 0.', ajuste: 'Some ou subtraia um valor de alguém; o resto é dividido igual.' };
+    const dicas = { igual: 'Toque no nome para tirar a pessoa desta despesa. O valor é dividido igual entre quem ficou.', exato: 'Digite quanto cada pessoa paga. A soma tem que bater com o total.', pct: 'Digite o % de cada pessoa. A soma tem que dar 100%.', partes: 'Ex.: quem paga pelo casal fica com 2 partes e o parceiro com 0.', ajuste: 'Some ou subtraia um valor de alguém; o resto é dividido igual.', reemb: 'Para estornos: quem recebeu o dinheiro de volta (em "Estorno recebido por") repassa a cada pessoa o valor digitado.', item: 'Toque nas pessoas de cada item da conta. Itens divididos são rateados entre quem marcou; o serviço é proporcional.' };
     const linhas = [0, 1, 2, 3].map((i) => {
       const on = fm.tipo !== 'igual' || fm.part[i];
-      const lbl = { exato: fm.moeda === 'EUR' ? '€' : 'R$', pct: '%', partes: 'partes', ajuste: '+/−' }[fm.tipo] || '';
+      const lbl = { exato: fm.moeda === 'EUR' ? '€' : 'R$', pct: '%', partes: 'partes', ajuste: '+/−', reemb: 'recebe' }[fm.tipo] || '';
       return {
         nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], id: 'dv-' + fm.tipo + '-' + i,
-        temCheck: fm.tipo === 'igual', temInput: fm.tipo !== 'igual',
+        i: i, temCheck: fm.tipo === 'igual', temInput: fm.tipo !== 'igual' && fm.tipo !== 'item',
         checkStyle: fm.part[i] ? 'background: #5B3DF5; color: #FFFFFF' : 'background: #FFFFFF; color: transparent; border: 2px solid #D9D2F2',
         nomeCor: on ? '' : 'color: #A39FB8; text-decoration: line-through',
-        val: fm.tipo === 'igual' ? '' : fm.vals[fm.tipo][i], aria: (i === 0 ? 'Você' : nomes[i]) + (fm.tipo === 'igual' ? (fm.part[i] ? ': incluído, toque para tirar' : ': fora, toque para incluir') : ': ' + lbl),
+        val: fm.tipo === 'igual' || fm.tipo === 'item' ? '' : (fm.vals[fm.tipo] || [])[i], aria: (i === 0 ? 'Você' : nomes[i]) + (fm.tipo === 'igual' ? (fm.part[i] ? ': incluído, toque para tirar' : ': fora, toque para incluir') : ': ' + lbl),
         calc: total > 0 && on ? fmt(sp.owed[i], fm.moeda) : (on ? '—' : 'fora'), cor: on ? '' : 'color: #A39FB8',
         toggle: () => { if (fm.tipo !== 'igual') return; const p = fm.part.slice(); p[i] = !p[i]; this.setFm({ part: p }); },
-        set: (ev) => { const v = Object.assign({}, fm.vals); const a = v[fm.tipo].slice(); a[i] = ev.target.value; v[fm.tipo] = a; this.setFm({ vals: v }); }
+        set: (ev) => { const v = Object.assign({}, fm.vals); const a = (v[fm.tipo] || ['', '', '', '']).slice(); a[i] = ev.target.value; v[fm.tipo] = a; this.setFm({ vals: v }); }
       };
-    });
+    }).filter((l) => cfg.membros[l.i]);
     // detalhe
     const e = D.exps.find((x) => x.id === D.sel) || D.exps[0];
-    const ec = this.dCat(e.desc); const quantos = e.owed ? e.owed.filter((v) => v > 0).length : 0;
+    const ec = e.pay ? ['wings', 'Pagamento', 'background: #E4F7EE'] : this.dCat(e.desc, e.cat); const quantos = e.owed ? e.owed.filter((v) => v > 0).length : 0;
     const det = {
-      desc: e.desc, valorTxt: fmt(e.valor, e.moeda), emo: EMO[ec[0]], icoBg: ec[2], agOn: e.autor === 'ag' && !!agNome,
-      autorLinha: (e.autor === 'ag' && agNome ? 'Lançada pela ' + agNome : 'Adicionada por ' + (e.autor === 0 || e.autor === 'ag' ? 'você' : nomes[e.autor])) + ' em ' + e.dia + ' nov · ' + ec[1],
-      linhas: e.pay ? [] : [].concat(
+      desc: e.pay ? 'Pagamento registrado' : e.desc, ehDesp: !e.pay, podeEditar: !(e.autor === 'ag' && !!agNome), valorTxt: fmt(e.valor, e.moeda), emo: EMO[ec[0]], icoBg: ec[2], agOn: e.autor === 'ag' && !!agNome,
+      autorLinha: e.pay ? 'Registrado em ' + e.dia + ' nov · feito fora do app (Pix ou dinheiro)' : (e.autor === 'ag' && agNome ? 'Lançada pela ' + agNome : 'Adicionada por ' + (e.autor === 0 || e.autor === 'ag' ? 'você' : nomes[e.autor])) + ' em ' + e.dia + ' nov · ' + ec[1],
+      linhas: e.pay ? [{ av: avs[e.de], ini: inis[e.de], txt: (e.de === 0 ? 'Você' : nomes[e.de]) + ' pagou', val: fmt(e.valor, e.moeda), cor: verde }, { av: avs[e.para], ini: inis[e.para], txt: (e.para === 0 ? 'Você' : nomes[e.para]) + ' recebeu', val: fmt(e.valor, e.moeda), cor: '' }] : e.tipo === 'reemb' ? [].concat(
+        e.owed.map((v, i) => v > 0 ? { av: avs[i], ini: inis[i], txt: (i === 0 ? 'Você recebeu' : nomes[i] + ' recebeu') + ' o estorno', val: fmt(v, e.moeda), cor: '' } : null).filter(Boolean),
+        e.paid.map((v, i) => v > 0 ? { av: avs[i], ini: inis[i], txt: (i === 0 ? 'Você recebe' : nomes[i] + ' recebe'), val: fmt(v, e.moeda), cor: verde } : null).filter(Boolean)) : [].concat(
         e.paid.map((v, i) => v > 0 ? { av: avs[i], ini: inis[i], txt: (i === 0 ? 'Você' : nomes[i]) + ' pagou', val: fmt(v, e.moeda), cor: verde } : null).filter(Boolean),
         e.owed.map((v, i) => v > 0 ? { av: avs[i], ini: inis[i], txt: (i === 0 ? 'Sua parte' : nomes[i] + ' · parte'), val: fmt(v, e.moeda), cor: '' } : null).filter(Boolean)),
-      tipoTxt: e.pay ? '' : ('Dividido ' + ({ igual: 'igualmente', exato: 'por valores', pct: 'por %', partes: 'por partes', ajuste: 'por ajuste' }[e.tipo] || '') + ' entre ' + quantos + (quantos === 4 ? ' pessoas: o grupo todo.' : ' pessoas: ' + e.owed.map((v, i) => v > 0 ? (i === 0 ? 'você' : nomes[i]) : null).filter(Boolean).join(' e ') + '.')),
+      extras: e.pay ? [] : [].concat(e.repete && e.repete !== 'nunca' ? [{ emo: EMO.restore, k: 'Repete ' + this.dRepLabel(e.repete).toLowerCase(), v: 'Próxima em ' + this.dProxima(e) }] : [], e.repete && e.repete !== 'nunca' ? [{ emo: EMO.envelope, k: 'Lembrete por e-mail', v: e.lembrete ? 'Sim, para todos' : 'Não' }] : [], e.nota ? [{ emo: EMO.pencil, k: 'Nota', v: e.nota }] : [], e.foto ? [{ emo: EMO.camera, k: 'Recibo', v: 'Foto anexada' }] : [], e.itens ? [{ emo: EMO.receipt, k: 'Itens da conta', v: e.itens.length + ' itens + serviço' }] : [], e.origem ? [{ emo: EMO.map, k: 'Item do roteiro', v: e.origem }] : []),
+      tipoTxt: e.pay ? '' : e.tipo === 'reemb' ? 'Reembolso: quem recebeu o estorno devolve a parte de cada um.' : ('Dividido ' + ({ igual: 'igualmente', exato: 'por valores', pct: 'por %', partes: 'por partes', ajuste: 'por ajuste', item: 'por item da conta' }[e.tipo] || '') + ' entre ' + quantos + (quantos === 4 ? ' pessoas: o grupo todo.' : ' pessoas: ' + e.owed.map((v, i) => v > 0 ? (i === 0 ? 'você' : nomes[i]) : null).filter(Boolean).join(' e ') + '.')),
       coms: (e.coms || []).map((c) => ({ av: avs[c.quem], ini: inis[c.quem], nome: c.quem === 0 ? 'Você' : nomes[c.quem], txt: c.txt })),
       semComs: !(e.coms || []).length, hist: (e.hist || []).map((h) => ({ txt: h }))
     };
@@ -1728,7 +1890,7 @@ class Component extends DCLogic {
       podeLembrar: d.para === 0, lembrar: () => this.showToast('Lembrete enviado para ' + nomes[d.de]),
       acertar: () => { this.setDp({ st: { de: d.de, para: d.para, moeda: d.moeda } }); this.setF({ dPag: String(d.valor).replace('.', ',') }); this.go('acertar'); }
     }));
-    const pessoas = [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], linhas: moedas.map((m) => { const v = net[m][i]; return { txt: v > 0.004 ? 'recebe ' + fmt(v, m) : (v < -0.004 ? 'deve ' + fmt(v, m) : 'quite em ' + (m === 'EUR' ? 'euro' : 'real')), cor: v > 0.004 ? verde : (v < -0.004 ? verm : cinza) }; }) }));
+    const pessoas = ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], linhas: moedas.map((m) => { const v = net[m][i]; return { txt: v > 0.004 ? 'recebe ' + fmt(v, m) : (v < -0.004 ? 'deve ' + fmt(v, m) : 'quite em ' + (m === 'EUR' ? 'euro' : 'real')), cor: v > 0.004 ? verde : (v < -0.004 ? verm : cinza) }; }) }));
     // fechamento
     const finais = this.dDebts(D.exps, true);
     const feitos = D.pagos.map((p) => ({ ...p, feito: true })); const todos = feitos.concat(finais.map((p) => ({ ...p, feito: false })));
@@ -1740,9 +1902,10 @@ class Component extends DCLogic {
         lembrar: () => this.showToast('Lembrete enviado para ' + (r.de === 0 ? 'você' : nomes[r.de])),
         pagar: () => this.dRegistrar(r.de, r.para, r.valor, r.moeda, 'fechamento')
       })),
+      proxLembrete: finais.length ? 'Próximo: 21 nov, para ' + Array.from(new Set(finais.map((x) => x.de))).map((i) => i === 0 ? 'você' : nomes[i]).join(', ') + '.' : 'Nada pendente.',
       progTxt: nTot ? nFeitos + ' de ' + nTot + ' repasses feitos' : 'Nada a repassar', progW: 'width: ' + (nTot ? Math.round(nFeitos * 100 / nTot) : 100) + '%',
       moedasTxt: moedas.length > 1 ? 'em € e R$' : (moedas[0] === 'EUR' ? 'em €' : 'em R$'),
-      duasMoedas: new Set(finais.map((x) => x.moeda)).size > 1, quitado: finais.length === 0, pendente: finais.length > 0
+      convAlvo: '', duasMoedas: false, porMoeda: new Set(finais.map((x) => x.moeda)).size > 1, quitado: finais.length === 0, pendente: finais.length > 0
     };
     // totais
     const totais = moedas.map((m) => {
@@ -1755,12 +1918,12 @@ class Component extends DCLogic {
       return { moeda: m === 'EUR' ? 'Em euro' : 'Em real', linhas: [{ k: 'Gasto total do grupo', v: fmt(gasto, m) }, { k: 'Total que você pagou', v: fmt(pago, m) }, { k: 'Sua parte', v: fmt(parte, m) }, { k: 'Pagamentos que você fez', v: fmt(pf, m) }, { k: 'Pagamentos que você recebeu', v: fmt(pr, m) }] };
     });
     // atividade
-    const ativEmo = { ag: EMO.briefcase, add: EMO.receipt, edit: EMO.pencil, del: EMO.trash, rest: EMO.restore, pay: EMO.wings, com: EMO.speech, simp: EMO.sparkles, conv: EMO.exchange, pro: EMO.ticket };
+    const ativEmo = { delg: EMO.trash, restg: EMO.restore, rem: EMO.hug, ag: EMO.briefcase, add: EMO.receipt, edit: EMO.pencil, del: EMO.trash, rest: EMO.restore, pay: EMO.wings, com: EMO.speech, simp: EMO.sparkles, conv: EMO.exchange, pro: EMO.ticket };
     const ativ = D.ativ.map((a) => {
       const quem = a.quem === 'ag' ? (agNome || 'Você') : (a.quem === 0 ? 'Você' : nomes[a.quem]);
       const ex = D.exps.find((x) => x.desc === a.desc);
-      const txt = { ag: (agNome ? agNome + ' lançou "' : 'Você adicionou "') + a.desc + '". ' + (a.extra || ''), add: quem + ' adicionou "' + a.desc + '". ' + (a.extra || ''), edit: quem + ' editou "' + a.desc + '".', del: quem + ' excluiu "' + a.desc + '".', rest: quem + ' restaurou "' + a.desc + '".', pay: quem + ' registrou: ' + a.desc + '.', com: quem + ' comentou em "' + a.desc + '": ' + (a.extra || ''), simp: quem + ' ' + a.desc, conv: quem + ' ' + a.desc, pro: quem + ' ' + a.desc }[a.t];
-      return { emo: ativEmo[a.t], txt: txt, quando: a.quando, podeRest: a.t === 'del' && !!ex && ex.del, restaurar: () => { this.setDp({ exps: this.state.dp.exps.map((x) => x.desc === a.desc ? Object.assign({}, x, { del: false }) : x), ativ: this.dAddAtiv({ t: 'rest', quem: 0, desc: a.desc }) }); this.showToast('Despesa restaurada'); } };
+      const txt = { ag: (agNome ? agNome + ' lançou "' : 'Você adicionou "') + a.desc + '". ' + (a.extra || ''), add: quem + ' adicionou "' + a.desc + '". ' + (a.extra || ''), edit: quem + ' editou "' + a.desc + '".', del: quem + ' excluiu "' + a.desc + '".', rest: quem + ' restaurou "' + a.desc + '".', pay: quem + ' registrou: ' + a.desc + '.', com: quem + ' comentou em "' + a.desc + '": ' + (a.extra || ''), simp: quem + ' ' + a.desc, conv: quem + ' ' + a.desc, pro: quem + ' ' + a.desc, delg: quem + ' excluiu o grupo para todos.', restg: quem + ' restaurou o grupo.', rem: quem + ' removeu ' + a.desc + ' do grupo.' }[a.t];
+      return { emo: ativEmo[a.t], txt: txt, quando: a.quando, podeRest: (a.t === 'del' && !!ex && ex.del) || (a.t === 'delg' && cfg.excluido), restaurar: () => { if (a.t === 'delg') { this.setDp({ cfg: Object.assign({}, this.state.dp.cfg, { excluido: false }), ativ: this.dAddAtiv({ t: 'restg', quem: 0, desc: '' }) }); this.showToast('Grupo restaurado'); return; } this.setDp({ exps: this.state.dp.exps.map((x) => x.desc === a.desc ? Object.assign({}, x, { del: false }) : x), ativ: this.dAddAtiv({ t: 'rest', quem: 0, desc: a.desc }) }); this.showToast('Despesa restaurada'); } };
     });
     const st = D.st;
     return {
@@ -1770,13 +1933,23 @@ class Component extends DCLogic {
       temNaoLidas: D.notifs.some((n) => n.nova), naoLidas: D.notifs.filter((n) => n.nova).length,
       pushOn: !!D.push, push: D.push || { titulo: '', txt: '' }, abrirPush: () => { if (D.push) this.abrirNotif(D.push.id); },
       agenciaLanca: () => this.agenciaLanca(),
-      avisos: D.notifs.map((n) => ({ titulo: n.titulo, txt: n.txt, quando: n.quando, nova: n.nova, emo: n.ag ? EMO.briefcase : EMO.receipt, bg: n.nova ? 'background: #FFF1E3' : 'background: #FFFFFF', abrir: () => this.abrirNotif(n.id) })),
+      avisos: D.notifs.map((n) => ({ titulo: n.titulo, txt: n.txt, quando: n.quando, nova: n.nova, emo: n.ag ? EMO.briefcase : (n.lembrete ? EMO.bell : EMO.receipt), bg: n.nova ? 'background: #FFF1E3' : 'background: #FFFFFF', abrir: () => this.abrirNotif(n.id) })),
       semAvisos: !D.notifs.length,
       novo: () => { if (!D.pro && D.hoje >= 4) { this.setDp({ motivo: 'limite' }); this.go('passe'); return; } this.setF({ dDesc: '', dValor: '' }); this.setDp({ fm: this.novoForm() }); this.go('addDesp'); },
       salvar: () => this.dSalvar(),
       setDesc: (ev) => this.setF({ dDesc: ev.target.value }), setValor: (ev) => this.setF({ dValor: ev.target.value }),
       trocarMoeda: () => this.setFm({ moeda: fm.moeda === 'EUR' ? 'BRL' : 'EUR' }),
       fm: {
+        origemOn: !!fm.origem, origem: fm.origem || '',
+        pagoLbl: ehReemb ? 'Estorno recebido por' : 'Pago por', diaTxt: (fm.dia === 14 ? 'Hoje, ' : '') + fm.dia + ' nov',
+        repCls: fm.repete !== 'nunca' ? 'chip chip-on' : 'chip', repTxt: 'Repetir: ' + this.dRepLabel(fm.repete).toLowerCase(), repOpen: fm.repOpen, repete: fm.repete !== 'nunca',
+        repOpts: ['nunca', 'semanal', 'quinzenal', 'mensal', 'anual'].map((k) => ({ label: this.dRepLabel(k), cls: fm.repete === k ? 'chip chip-on' : 'chip', pick: () => this.setFm({ repete: k, lembrete: k === 'nunca' ? false : fm.lembrete }) })),
+        lembStyle: fm.lembrete ? 'background: #5B3DF5; color: #FFFFFF' : 'background: #FFFFFF; color: transparent; border: 2px solid #D9D2F2',
+        catOpen: fm.catOpen, catOpts: Object.keys(this.dCats()).map((k) => ({ label: this.dCats()[k][1], emo: EMO[this.dCats()[k][0]], cls: (fm.cat || this.dCatKey(f.dDesc)) === k ? 'chip chip-on' : 'chip', pick: () => this.setFm({ cat: k, catOpen: false }) })),
+        fotoCls: fm.foto ? 'chip chip-on' : 'chip', fotoTxt: fm.foto ? 'Recibo anexado' : 'Foto do recibo', notaOpen: fm.notaOpen || !!f.dNota, notaCls: f.dNota ? 'chip chip-on' : 'chip',
+        ehItem: fm.tipo === 'item',
+        itensL: (fm.itens || []).map((x, k) => { const q = [0, 1, 2, 3].filter((i) => x.quem[i]); return { nome: x.n, val: fmt(x.v, fm.moeda), porPessoa: q.length ? (q.length > 1 ? fmt(x.v / q.length, fm.moeda) + ' cada' : 'só ' + (q[0] === 0 ? 'você' : nomes[q[0]])) : 'ninguém marcado', pess: ativos.map((i) => ({ ini: inis[i], aria: (i === 0 ? 'Você' : nomes[i]) + (x.quem[i] ? ' consumiu, toque para tirar' : ' não consumiu, toque para marcar'), style: x.quem[i] ? avs[i] + '; border: 2px solid #5B3DF5' : 'background: #F3F1F9; color: #A39FB8; border: 2px dashed #D9D2F2', toggle: () => { const its = fm.itens.map((y, j) => j !== k ? y : Object.assign({}, y, { quem: y.quem.map((v, ii) => ii === i ? !v : v) })); this.setFm({ itens: its }); } })) }; }),
+        itemTaxa: fm.itens ? 'Subtotal ' + fmt(fm.itens.reduce((a, x) => a + x.v, 0), fm.moeda) + ' + serviço 10% = ' + fmt(total, fm.moeda) + '. O serviço é rateado na proporção do consumo de cada um.' : '',
         titulo: fm.id ? 'Editar despesa' : 'Nova despesa', simb: fm.moeda === 'EUR' ? '€' : 'R$', emo: EMO[cat[0]], icoBg: cat[2], catNome: cat[1],
         pagoTxt: fm.multi ? 'várias pessoas' : (fm.payer === 0 ? 'você' : nomes[fm.payer]), divTxt: divTxt, resumo: resumo,
         erroOn: total > 0 && (!!sp.erro || (fm.multi && Math.abs(sumPays - total) > 0.004)), erro: sp.erro || 'A soma de quem pagou não bate com o total.',
@@ -1792,28 +1965,67 @@ class Component extends DCLogic {
         paysLinhas: [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], id: 'dp-' + i, val: fm.pays[i], aria: 'Quanto ' + (i === 0 ? 'você pagou' : nomes[i] + ' pagou'), set: (ev) => { const a = fm.pays.slice(); a[i] = ev.target.value; this.setFm({ pays: a }); } })),
         paysStatus: Math.abs(sumPays - total) < 0.005 ? 'Soma bate com o total' : 'Soma ' + fmt(sumPays, fm.moeda) + ' de ' + fmt(total, fm.moeda), paysCor: Math.abs(sumPays - total) < 0.005 ? verde : verm
       },
-      tipos: tiposDef.map((t) => ({ label: t[1], cls: fm.tipo === t[0] ? 'tab tab-on' : 'tab', pick: () => { if (t[0] === 'item') { if (!D.pro) { this.setDp({ motivo: 'item' }); this.go('passe'); } else this.showToast('Por item: no app real, lê o recibo pela câmera'); return; } this.setFm({ tipo: t[0] }); } })),
-      pagadores: [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: !fm.multi && fm.payer === i ? 'opt opt-on' : 'opt', pick: () => this.setFm({ payer: i, multi: false }) })),
+      tipos: tiposDef.map((t) => ({ label: t[1], cls: fm.tipo === t[0] ? 'tab tab-on' : 'tab', pick: () => { if (t[0] === 'item') { if (!this.dPro('item')) return; if (!fm.itens) { this.setF({ dValor: '104,50' }); this.setFm({ tipo: 'item', itens: this.dRecibo() }); } else this.setFm({ tipo: 'item' }); return; } this.setFm({ tipo: t[0] }); } })),
+      pagadores: ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: !fm.multi && fm.payer === i ? 'opt opt-on' : 'opt', pick: () => this.setFm({ payer: i, multi: false }) })),
       multiCls: fm.multi ? 'opt opt-on' : 'opt', pickMulti: () => this.setFm({ multi: true }),
       det: det,
-      editar: () => { const snap = e.fmSnap || Object.assign(this.novoForm(), { part: e.owed.map((v) => v > 0), payer: Math.max(0, e.paid.findIndex((v) => v > 0)) }); this.setF({ dDesc: e.desc, dValor: String(e.valor).replace('.', ',') }); this.setDp({ fm: Object.assign({}, snap, { id: e.id, moeda: e.moeda }) }); this.go('addDesp'); },
-      excluir: () => { this.setDp({ exps: D.exps.map((x) => x.id === e.id ? Object.assign({}, x, { del: true }) : x), ativ: this.dAddAtiv({ t: 'del', quem: 0, desc: e.desc }) }); this.go('financas'); this.showToast('Despesa excluída. Dá para restaurar na Atividade.'); },
+      editar: () => { if (e.pay) { this.setDp({ st: { de: e.de, para: e.para, moeda: e.moeda, editId: e.id } }); this.setF({ dPag: String(e.valor).replace('.', ',') }); this.go('acertar'); return; } this.setF({ dNota: e.nota || '' }); const snap = e.fmSnap || Object.assign(this.novoForm(), { part: e.owed.map((v) => v > 0), payer: Math.max(0, e.paid.findIndex((v) => v > 0)) }); this.setF({ dDesc: e.desc, dValor: String(e.valor).replace('.', ',') }); this.setDp({ fm: Object.assign({}, snap, { id: e.id, moeda: e.moeda }) }); this.go('addDesp'); },
+      excluir: () => { this.setDp({ exps: D.exps.map((x) => x.id === e.id ? Object.assign({}, x, { del: true }) : x), ativ: this.dAddAtiv({ t: 'del', quem: 0, desc: e.desc }) }); this.go('financas'); this.showToast(e.pay ? 'Pagamento excluído: o saldo voltou ao que era' : 'Despesa excluída. Dá para restaurar na Atividade.'); },
       setComent: (ev) => this.setF({ dComent: ev.target.value }),
       comentar: () => { const t = (f.dComent || '').trim(); if (!t) return; this.setDp({ exps: D.exps.map((x) => x.id === e.id ? Object.assign({}, x, { coms: (x.coms || []).concat([{ quem: 0, txt: t }]) }) : x), ativ: this.dAddAtiv({ t: 'com', quem: 0, desc: e.desc, extra: t }) }); this.setF({ dComent: '' }); },
       toggleSimp: () => this.setDp({ simp: !D.simp, ativ: this.dAddAtiv({ t: 'simp', quem: 0, desc: (D.simp ? 'desligou' : 'ligou') + ' "simplificar dívidas".' }) }),
       swBg: D.simp ? 'background: #5B3DF5' : 'background: #D9D2F2', swPos: D.simp ? 'left: 24px' : 'left: 4px',
       pessoas: pessoas, dividas: dividas, semDividas: !dividas.length,
       abrirAcertar: () => { const d0 = debts.find((d) => d.para === 0 || d.de === 0) || debts[0]; if (d0) { this.setDp({ st: { de: d0.de, para: d0.para, moeda: d0.moeda } }); this.setF({ dPag: String(d0.valor).replace('.', ',') }); } this.go('acertar'); },
-      stDe: [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: st.de === i ? 'chip chip-on' : 'chip', pick: () => this.setDp({ st: Object.assign({}, st, { de: i }) }) })),
-      stPara: [0, 1, 2, 3].map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: st.para === i ? 'chip chip-on' : 'chip', pick: () => this.setDp({ st: Object.assign({}, st, { para: i }) }) })),
+      stDe: ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: st.de === i ? 'chip chip-on' : 'chip', pick: () => this.setDp({ st: Object.assign({}, st, { de: i }) }) })),
+      stPara: ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], cls: st.para === i ? 'chip chip-on' : 'chip', pick: () => this.setDp({ st: Object.assign({}, st, { para: i }) }) })),
       stSimb: st.moeda === 'EUR' ? '€' : 'R$', stMoeda: () => this.setDp({ st: Object.assign({}, st, { moeda: st.moeda === 'EUR' ? 'BRL' : 'EUR' }) }),
       setPag: (ev) => this.setF({ dPag: ev.target.value }),
       stDica: (() => { const d = debts.find((x) => x.de === st.de && x.para === st.para && x.moeda === st.moeda); return d ? 'Saldo em aberto entre os dois: ' + fmt(d.valor, d.moeda) + '. Pode registrar um valor menor (pagamento parcial).' : 'Não há saldo em aberto nessa direção; o pagamento vira crédito.'; })(),
       registrar: () => this.dRegistrar(st.de, st.para, this.dNum(f.dPag), st.moeda),
+      prev: (() => { const fx = [['Até R$ 300', 0, 300], ['R$ 300 a R$ 600', 300, 600], ['R$ 600 a R$ 1.000', 600, 1000], ['Acima de R$ 1.000', 1000, 1e9]][s.f.faixa >= 0 ? s.f.faixa : 1]; const dias = 2; /* dias de viagem até hoje: 13 e 14 nov */ const minha = {}; D.exps.filter((x) => !x.del && !x.pay).forEach((x) => { minha[x.moeda] = (minha[x.moeda] || 0) + x.owed[0]; }); const real = Object.keys(minha).sort().map((m) => fmt(minha[m] / dias, m)).join(' + '); const brl = (minha.BRL || 0) / dias; return { on: !!real && !cfg.excluido, real: real || '—', faixa: fx[0], leitura: brl > fx[2] ? 'Em real, você já passou da faixa (o pacote entra aqui).' : 'Os gastos em euro aparecem separados, sem conversão.' }; })(),
+      toggleBusca: () => { if (!this.dPro('busca')) return; this.setDp({ buscaOn: !D.buscaOn }); this.setF({ dBusca: '' }); },
+      buscaOn: D.buscaOn, setBusca: (ev) => this.setF({ dBusca: ev.target.value }),
+      abrirGraf: () => { if (this.dPro('graf')) this.go('graficos'); },
+      grupoExcl: cfg.excluido, restaurarGrupo: () => { this.setDp({ cfg: Object.assign({}, cfg, { excluido: false }), ativ: this.dAddAtiv({ t: 'restg', quem: 0, desc: '' }) }); this.showToast('Grupo restaurado'); },
+      listaTitulo: busca ? 'Resultado da busca' : 'Novembro de 2026',
+      temAcert: nAcert > 0 && !cfg.excluido, acertTxt: D.mostrarAcert ? 'Esconder despesas só suas' : 'Mostrar despesas acertadas (' + nAcert + ')', toggleAcert: () => this.setDp({ mostrarAcert: !D.mostrarAcert }),
+      diaMenos: () => this.setFm({ dia: Math.max(12, fm.dia - 1) }), diaMais: () => this.setFm({ dia: Math.min(18, fm.dia + 1) }),
+      toggleRep: () => this.setFm({ repOpen: !fm.repOpen, catOpen: false }), toggleLembrete: () => this.setFm({ lembrete: !fm.lembrete }),
+      toggleCat: () => this.setFm({ catOpen: !fm.catOpen, repOpen: false }), toggleFoto: () => { this.setFm({ foto: !fm.foto }); if (!fm.foto) this.showToast('Foto do recibo anexada'); },
+      toggleNota: () => this.setFm({ notaOpen: !fm.notaOpen }), setNota: (ev) => this.setF({ dNota: ev.target.value }),
+      lerRecibo: () => { if (!this.dPro('item')) return; this.setF({ dDesc: 'Trattoria Da Enzo', dValor: '104,50' }); this.setFm({ tipo: 'item', itens: this.dRecibo(), cat: 'comida', foto: true }); this.showToast('Recibo lido: 5 itens + serviço'); },
+      stTitulo: st.editId ? 'Editar pagamento' : 'Registrar pagamento', stBotao: st.editId ? 'Salvar pagamento' : 'Registrar pagamento',
+      totTabs: [['mes', 'Novembro de 2026'], ['tudo', 'Desde o início']].map((t) => ({ label: t[1], cls: D.totFiltro === t[0] ? 'tab tab-on' : 'tab', pick: () => this.setDp({ totFiltro: t[0] }) })),
+      cfg: {
+        membros: [0, 1, 2, 3].map((i) => { const zero = moedas.every((m) => Math.abs(net[m][i]) < 0.005); const sal = moedas.map((m) => { const v = net[m][i]; return v > 0.004 ? 'recebe ' + fmt(v, m) : (v < -0.004 ? 'deve ' + fmt(v, m) : null); }).filter(Boolean).join(' · ');
+          return { nome: i === 0 ? 'Você · cabeça do grupo' : nomes[i], ini: inis[i], av: avs[i], saldo: cfg.membros[i] ? (sal || 'Saldo zero') : 'Fora do grupo', cor: sal ? 'color: #C4320A' : 'color: #0E6B4C', podeTirar: i > 0 && cfg.membros[i], removido: !cfg.membros[i],
+            remover: () => { if (!zero) { this.showToast('Zere o saldo de ' + nomes[i] + ' antes: registre um pagamento ou tire-a das despesas'); return; } const mm = cfg.membros.slice(); mm[i] = false; this.setDp({ cfg: Object.assign({}, cfg, { membros: mm }), ativ: this.dAddAtiv({ t: 'rem', quem: 0, desc: nomes[i] }) }); this.showToast(nomes[i] + ' saiu do grupo'); } }; }),
+        padraoOn: cfg.padrao, padBg: cfg.padrao ? 'background: #5B3DF5' : 'background: #D9D2F2', padPos: cfg.padrao ? 'left: 24px' : 'left: 4px',
+        padLinhas: ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], id: 'pad-' + i, val: cfg.padraoVals[i], aria: 'Partes de ' + (i === 0 ? 'você' : nomes[i]), set: (ev) => { const v = cfg.padraoVals.slice(); v[i] = ev.target.value; this.dSetCfg({ padraoVals: v }); } })),
+        confirmOn: cfg.confirmOn
+      },
+      togglePadrao: () => { if (!cfg.padrao && !this.dPro('padrao')) return; this.dSetCfg({ padrao: !cfg.padrao }); },
+      sair: () => { const zero = moedas.every((m) => Math.abs(net[m][0]) < 0.005); if (!zero) { this.showToast('Você só pode sair com saldo zero no grupo'); return; } this.showToast('Você saiu do grupo'); this.go('home'); },
+      pedirExcluir: () => this.dSetCfg({ confirmOn: true }), cancelarExcluir: () => this.dSetCfg({ confirmOn: false }),
+      excluirGrupo: () => { this.setDp({ cfg: Object.assign({}, cfg, { excluido: true, confirmOn: false }), ativ: this.dAddAtiv({ t: 'delg', quem: 0, desc: '' }) }); this.go('financas'); this.showToast('Grupo excluído para todos'); },
+      conta: {
+        ini: inis[0], nome: f.nome || 'Flavio Rodrigues', email: f.email || 'flavio@email.com',
+        moedas: [['BRL', 'R$ · real'], ['EUR', '€ · euro']].map((m) => ({ label: m[1], cls: cfg.moedaPadrao === m[0] ? 'chip chip-on' : 'chip', pick: () => this.dSetCfg({ moedaPadrao: m[0] }) })),
+        pushBg: cfg.push ? 'background: #5B3DF5' : 'background: #D9D2F2', pushPos: cfg.push ? 'left: 24px' : 'left: 4px',
+        mailBg: cfg.email ? 'background: #5B3DF5' : 'background: #D9D2F2', mailPos: cfg.email ? 'left: 24px' : 'left: 4px',
+        plano: D.pro ? 'Passe da viagem ativo para as 4 pessoas: sem limite e sem anúncios.' : 'Plano grátis: até 4 despesas por dia, com anúncios.'
+      },
+      togglePush: () => this.dSetCfg({ push: !cfg.push }), toggleEmail: () => this.dSetCfg({ email: !cfg.email }),
+      expRows: D.exps.filter((x) => !x.del).slice().sort((a, b) => (a.dia || 0) - (b.dia || 0)).map((x) => { const imp = x.pay ? [0, 1, 2, 3].map((i) => i === x.de ? x.valor : (i === x.para ? -x.valor : 0)) : x.paid.map((v, i) => v - x.owed[i]); return { data: x.dia + '/11', desc: x.pay ? 'Pagamento · ' + x.desc : x.desc, moeda: x.moeda === 'EUR' ? '€' : 'R$', custo: (x.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), imp: imp.map((v) => ({ t: Math.abs(v) < 0.005 ? '0,00' : (v > 0 ? '+' : '−') + Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), cor: v > 0.004 ? verde : (v < -0.004 ? verm : cinza) })) }; }),
+      baixarCsv: () => { try { const blob = new Blob(['\ufeff' + this.dCsv()], { type: 'text/csv;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'despesas-roma-florenca.csv'; document.body.appendChild(a); a.click(); a.remove(); this.showToast('Planilha gerada'); } catch (err) { this.showToast('No app real, baixa a planilha CSV'); } },
+      simLembrete: () => { const fin = this.dDebts(this.state.dp.exps, true); const n = { id: 'n' + this.state.dp.seq, ref: null, titulo: 'Lembrete: contas da viagem', txt: 'Faltam ' + fin.length + ' repasses para a viagem Roma e Florença ficar quitada. Toque para ver quem paga quem.', quando: '21 nov', nova: true, ag: false, lembrete: true }; this.setDp({ notifs: [n].concat(this.state.dp.notifs), push: this.state.dp.cfg.push ? n : null, seq: this.state.dp.seq + 1 }); return 900; },
+      resumoPdf: () => this.showToast('No app real, abre o resumo para imprimir'),
+      graf: moedas.map((m) => { const C = this.dCats(); const tot = {}; const minha = {}; D.exps.filter((x) => !x.del && !x.pay && x.moeda === m).forEach((x) => { const k = x.cat || this.dCatKey(x.desc); tot[k] = (tot[k] || 0) + x.valor; minha[k] = (minha[k] || 0) + x.owed[0]; }); const mx = Math.max(1, ...Object.values(tot)); return { moeda: m === 'EUR' ? 'Em euro' : 'Em real', barras: Object.keys(tot).sort((a, b) => tot[b] - tot[a]).map((k) => ({ nome: C[k][1], emo: EMO[C[k][0]], val: fmt(tot[k], m), minha: fmt(minha[k] || 0, m), w: 'width: ' + Math.round(tot[k] * 100 / mx) + '%' })) }; }),
       fe: fe, converter: () => this.dConverter(), totais: totais, ativ: ativ,
-      motivoTxt: { limite: 'Você chegou ao limite de 4 despesas por dia do plano grátis. Com o passe, o grupo todo lança sem limite.', conv: 'Converter as despesas para uma moeda só é recurso do passe. Útil quando o grupo decide acertar tudo em reais.', item: 'Dividir por item da conta (e ler o recibo pela câmera) é recurso do passe.' }[D.motivo] || '',
-      passeItens: [{ t: 'Despesas ilimitadas para todo o grupo' }, { t: 'Converter moedas pela cotação do dia' }, { t: 'Dividir por item e ler o recibo pela câmera' }, { t: 'Gráficos por categoria e busca' }, { t: 'Sem anúncios' }],
-      ativarPasse: () => { const volta = D.motivo === 'conv' ? 'fechamento' : 'financas'; this.setDp({ pro: true, ativ: this.dAddAtiv({ t: 'pro', quem: 0, desc: 'ativou o passe da viagem para o grupo.' }) }); this.showToast('Passe ativo para as 4 pessoas'); this.go(volta); if (D.motivo === 'conv') this.later(() => this.dConverter(), 900); }
+      motivoTxt: { limite: 'Você chegou ao limite de 4 despesas por dia do plano grátis. Com o passe, o grupo todo lança sem limite.', conv: 'Converter as despesas para uma moeda só é recurso do passe. Útil quando o grupo decide acertar tudo em reais.', item: 'Dividir por item da conta e ler o recibo pela câmera são recursos do passe.', busca: 'Buscar em todas as despesas é recurso do passe.', graf: 'Gráficos de gastos por categoria são recurso do passe.', padrao: 'Definir uma divisão padrão para o grupo é recurso do passe.' }[D.motivo] || '',
+      passeItens: [{ t: 'Despesas ilimitadas para todo o grupo' }, { t: 'Dividir por item e ler o recibo pela câmera' }, { t: 'Gráficos por categoria e busca' }, { t: 'Sem anúncios' }],
+      ativarPasse: () => { const volta = 'financas'; this.setDp({ pro: true, ativ: this.dAddAtiv({ t: 'pro', quem: 0, desc: 'ativou o passe da viagem para o grupo.' }) }); this.showToast('Passe ativo para as 4 pessoas'); this.go(volta); }
     };
   }
 
@@ -1899,7 +2111,7 @@ class Component extends DCLogic {
       { nome: 'Agência exemplo B', det: 'São Paulo · especialista em Europa', nota: '4,7' },
       { nome: 'Agência exemplo C', det: 'Atende à distância', nota: '4,6' }
     ];
-    const groups = [['Jornada 0 · Entrar', 0, 5], ['Jornada 1 · Configuração', 5, 12], ['Escolhas, match e roteiro', 12, 17], ['Depois do roteiro', 17, 19], ['Jornada 2 · Despesas do grupo', 19, 31]];
+    const groups = [['Jornada 0 · Entrar', 0, 5], ['Jornada 1 · Configuração', 5, 12], ['Escolhas, match e roteiro', 12, 17], ['Depois do roteiro', 17, 19], ['Jornada 2 · Despesas do grupo', 19, 35]];
 
     return {
       demoOn: s.demo, demoOff: !s.demo,
@@ -1987,6 +2199,7 @@ class Component extends DCLogic {
       calDias: cal, periodoTxt: periodoTxt,
       roteiroSub: 'Roma e Florença · ' + ini + ' a ' + fim + ' de novembro · ' + (fim - ini + 1) + ' dias',
       itens: itensRaw.map((it, i) => ({
+        lancar: () => { this.setF({ dDesc: it.nome, dValor: '', dNota: '' }); this.setDp({ fm: Object.assign(this.novoForm(), { cat: /Gastronomia/.test(it.cat) ? 'comida' : 'ingresso', origem: 'Dia ' + s.dia + ' · ' + it.hora + ' · ' + it.nome }) }); this.go('addDesp'); this.showToast('Vindo do roteiro: ' + it.nome); },
         n: i + 1, cat: it.cat, hora: it.hora, nome: it.nome, dur: it.dur, tag: it.tag, conn: it.conn, temConn: !!it.conn,
         pinStyle: 'background: ' + dayColor,
         tagStyle: it.tag === 'Sugestão do app' ? 'background: #FFF4D6; color: #7A4B00' : 'background: #E3F4EC; color: #0E6B4C',
