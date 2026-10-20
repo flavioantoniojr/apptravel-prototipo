@@ -17,6 +17,12 @@ img{user-select:none;-webkit-user-drag:none}
 .scr{position:absolute;inset:0;display:flex;flex-direction:column;padding:44px 22px 22px;overflow-y:auto;background:#FAF8FF}
 .scr-dark{color:#FFFFFF}
 .scr>*{flex-shrink:0}
+.tabbar{display:flex;justify-content:space-around;background:#FFFFFF;border-radius:22px 22px 0 0;box-shadow:0 -6px 24px rgba(42,27,110,.08);padding:8px 4px 14px}
+.tab-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:none;background:transparent;font:700 11px 'Plus Jakarta Sans',system-ui,sans-serif;color:#625D7C;cursor:pointer;padding:4px 0;min-height:48px}
+.tab-i img{opacity:.55;filter:grayscale(.6)}
+.tab-on2{color:#5B3DF5}
+.tab-on2 img{opacity:1;filter:none}
+.tbadge{position:absolute;top:-4px;right:-10px;min-width:17px;height:17px;border-radius:999px;background:#E8445A;color:#FFFFFF;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;padding:0 4px}
 .pushb{animation:desce .4s cubic-bezier(.2,.9,.3,1.2)}
 @keyframes desce{from{transform:translateY(-120%);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion: reduce){.pushb{animation:none}}
@@ -54,6 +60,8 @@ img{user-select:none;-webkit-user-drag:none}
 .nav{display:flex;justify-content:space-around;background:#FFFFFF;margin:auto -22px -22px;padding:12px 0 18px;border-radius:26px 26px 0 0;box-shadow:0 -6px 24px rgba(42,27,110,.07)}
 .nav span{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:#625D7C}
 .nav span.on{color:#5B3DF5}
+.navb{display:flex;flex-direction:column;align-items:center;gap:3px;font:700 11px 'Plus Jakarta Sans',system-ui,sans-serif;color:#625D7C;border:none;background:transparent;cursor:pointer;min-width:64px;min-height:48px}
+.navb.on{color:#5B3DF5}
 .deck{position:relative;flex:1;margin-top:12px;min-height:420px}
 .swcard{position:absolute;inset:0;border-radius:28px;background:#FFFFFF;box-shadow:0 18px 40px rgba(42,27,110,.16);overflow:hidden;display:flex;flex-direction:column;touch-action:none;cursor:grab}
 .anim{transition:transform .38s ease, opacity .38s ease}
@@ -246,10 +254,16 @@ body{background:#F1EEFB}
                 <div><p style="margin: 0; font-size: 13px; color: #625D7C; font-weight: 600">Bem-vindo de volta</p><div style="display: flex; align-items: center; gap: 8px"><b class="disp" style="font-size: 24px; letter-spacing: -0.4px">Olá, {{primeiroNome}}</b><img src="{{emo.waving}}" alt="" width="28" height="28" style="display: block; flex: none"></div></div>
                 <div class="av" style="background: linear-gradient(135deg,#7B5CFF,#FF7A6B); color: #FFFFFF">{{inicial}}</div>
               </div>
+              <sc-if value="{{viagemAtiva}}" hint-placeholder-val="{{ false }}">
+                <div class="card" style="margin-top: 18px; padding: 16px">
+                  <div style="display: flex; gap: 12px; align-items: center"><img src="{{emo.city}}" alt="" width="44" height="44" style="display: block; flex: none"><div style="flex: 1; min-width: 0"><span class="pill" style="background: #E4F7EE; color: #0E6B4C">Viagem em andamento</span><b class="disp" style="display: block; font-size: 18px; margin-top: 4px">Roma e Florença</b><span style="font-size: 13px; color: #625D7C">13 a 18 nov · 4 pessoas · {{homeSaldo}}</span></div></div>
+                  <div style="display: flex; gap: 8px; margin-top: 12px"><button class="btn btn-s" style="height: 46px; font-size: 14px" onClick="{{go.roteiro}}"><img src="{{emo.map}}" alt="" width="22" height="22" style="display: block">Roteiro</button><button class="btn btn-s" style="height: 46px; font-size: 14px" onClick="{{go.financas}}"><img src="{{emo.receipt}}" alt="" width="22" height="22" style="display: block">Despesas</button></div>
+                </div>
+              </sc-if>
               <div style="position: relative; margin-top: 22px; border-radius: 28px; padding: 22px; color: #FFFFFF; background: radial-gradient(90% 80% at 100% 0%, #FF8A6B 0%, rgba(255,138,107,0) 60%), linear-gradient(150deg,#7B5CFF,#4A2FD6); box-shadow: 0 16px 34px rgba(91,61,245,.32); overflow: hidden">
                 <img class="float" src="{{emo.luggage}}" alt="" width="96" height="96" style="right: 10px; top: 8px; transform: rotate(8deg)">
                 <span class="pill" style="background: rgba(255,255,255,.2); color: #FFFFFF">Nova viagem</span>
-                <h2 style="font-size: 26px; line-height: 30px; font-weight: 800; margin: 12px 0 8px; max-width: 200px; letter-spacing: -0.5px">Planeje sua primeira viagem</h2>
+                <h2 style="font-size: 26px; line-height: 30px; font-weight: 800; margin: 12px 0 8px; max-width: 200px; letter-spacing: -0.5px">{{homeTitulo}}</h2>
                 <p style="margin: 0; font-size: 14px; line-height: 20px; color: #EDE8FF; max-width: 250px">Chame quem vai com você, cada um escolhe o que curte e o app monta o roteiro.</p>
                 <button class="btn btn-w" style="margin-top: 18px" onClick="{{go.grupo}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Criar viagem</button>
               </div>
@@ -260,9 +274,9 @@ body{background:#F1EEFB}
                 <div><img src="{{emo.map}}" alt="" width="40" height="40" style="display: block; flex: none">Roteiro pronto</div>
               </div>
               <div class="nav">
-                <span class="on"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Início</span>
-                <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Viagens</span>
-                <span><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Perfil</span>
+                <button class="navb on" onClick="{{go.home}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Início</button>
+                <button class="navb" onClick="{{abrirViagens}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>Viagens</button>
+                <button class="navb" onClick="{{go.conta}}"><svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a6 6 0 0 1 6-6h4a6 6 0 0 1 6 6v1"/></svg>Perfil</button>
               </div>
             </div>
           </sc-if>
@@ -784,17 +798,18 @@ body{background:#F1EEFB}
                       <div style="flex: 1; min-width: 0">
                         <div style="display: flex; justify-content: space-between; gap: 8px"><span style="font-size: 11px; font-weight: 800; color: #625D7C; text-transform: uppercase; letter-spacing: .5px">{{it.cat}}</span><b style="font-size: 13px; color: #5B3DF5">{{it.hora}}</b></div>
                         <b style="font-size: 15px; display: block; margin-top: 2px">{{it.nome}}</b>
-                        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap"><button class="pill" onClick="{{it.lancar}}" style="border: 1px solid #D9D2F2; background: #FFFFFF; color: #5B3DF5; cursor: pointer; font-family: inherit">+ Lançar gasto</button><span class="pill" style="background: #F3F1F9; color: #3F3A5A">{{it.dur}}</span><span class="pill" style="{{it.tagStyle}}">{{it.tag}}</span><span class="pill" style="{{it.dispStyle}}">{{it.disp}}</span></div>
+                        <div style="display: flex; gap: 6px; align-items: center; margin-top: 6px; flex-wrap: wrap"><button class="pill" onClick="{{it.lancar}}" style="border: 1px solid #D9D2F2; background: #FFFFFF; color: #5B3DF5; cursor: pointer; font-family: inherit; min-height: 32px; padding: 4px 12px">+ Lançar gasto</button><span class="pill" style="background: #F3F1F9; color: #3F3A5A">{{it.dur}}</span><span class="pill" style="{{it.tagStyle}}">{{it.tag}}</span><span class="pill" style="{{it.dispStyle}}">{{it.disp}}</span></div>
                       </div>
                     </div>
                     <sc-if value="{{it.temConn}}" hint-placeholder-val="{{ true }}"><div class="conn"><img src="{{emo.footprints}}" alt="" width="16" height="16" style="display: block; flex: none">{{it.conn}}</div></sc-if>
                   </div>
                 </sc-for>
               </div>
-              <div style="position: sticky; bottom: 0; margin: 12px -22px 0; padding: 12px 22px 22px; background: #FAF8FF; border-top: 1px solid #ECE8F6; display: flex; gap: 10px">
+              <sc-if value="{{semViagem}}" hint-placeholder-val="{{ true }}"><div style="position: sticky; bottom: 0; margin: 12px -22px 0; padding: 12px 22px 22px; background: #FAF8FF; border-top: 1px solid #ECE8F6; display: flex; gap: 10px">
                 <button class="btn btn-s" style="flex: 0 0 110px">Editar</button>
                 <button class="btn btn-p" onClick="{{go.proximo}}">Próximo passo</button>
-              </div>
+              </div></sc-if>
+              <sc-if value="{{viagemAtiva}}" hint-placeholder-val="{{ false }}"><div style="position: sticky; bottom: 0; margin: 12px -22px 0"><div class="tabbar"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><span style="position: relative"><img src="{{t.emo}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{t.temBadge}}" hint-placeholder-val="{{ false }}"><span class="tbadge">{{t.n}}</span></sc-if></span>{{t.label}}</button></sc-for></div></div></sc-if>
             </div>
           </sc-if>
 
@@ -869,8 +884,9 @@ body{background:#F1EEFB}
                 <div style="display: flex; gap: 10px; align-items: center; margin-top: 12px; padding: 10px 12px; border-radius: 16px; background: #F3F1F9; font-size: 12px; color: #3F3A5A"><img src="{{emo.shield}}" alt="" width="28" height="28" style="display: block; flex: none"><span style="flex: 1"><b>Seguro viagem Europa</b> a partir de R$ 19 por dia. Cobertura exigida no Schengen.</span><span class="pill" style="background: #FFFFFF; color: #625D7C">Anúncio</span></div>
               </sc-if>
               <button onClick="{{dp.agenciaLanca}}" style="margin-top: 10px; border: 1px dashed #D9D2F2; background: transparent; border-radius: 14px; padding: 10px; font-size: 12px; font-weight: 700; color: #625D7C; cursor: pointer; font-family: inherit">Simular: a agência lança uma despesa</button>
-              <div style="position: sticky; bottom: 0; margin: auto -22px 0; padding: 12px 22px 22px; background: #FAF8FF; border-top: 1px solid #ECE8F6">
-                <button class="btn btn-p" onClick="{{dp.novo}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Adicionar despesa</button>
+              <div style="position: sticky; bottom: 0; margin: auto -22px 0; background: #FAF8FF">
+                <div style="padding: 10px 22px; border-top: 1px solid #ECE8F6"><button class="btn btn-p" onClick="{{dp.novo}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>Adicionar despesa</button></div>
+                <div class="tabbar"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><span style="position: relative"><img src="{{t.emo}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{t.temBadge}}" hint-placeholder-val="{{ false }}"><span class="tbadge">{{t.n}}</span></sc-if></span>{{t.label}}</button></sc-for></div>
               </div>
             </div>
           </sc-if>
@@ -900,7 +916,7 @@ body{background:#F1EEFB}
               <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap">
                 <span class="chip" style="flex: none; padding: 0 4px"><button aria-label="Dia anterior" onClick="{{dp.diaMenos}}" style="border: none; background: transparent; cursor: pointer; font-size: 18px; padding: 0 6px; color: #5B3DF5; font-family: inherit">‹</button><img src="{{emo.calendar}}" alt="" width="20" height="20" style="display: block">{{dp.fm.diaTxt}}<button aria-label="Próximo dia" onClick="{{dp.diaMais}}" style="border: none; background: transparent; cursor: pointer; font-size: 18px; padding: 0 6px; color: #5B3DF5; font-family: inherit">›</button></span>
                 <button class="{{dp.fm.repCls}}" style="flex: none" onClick="{{dp.toggleRep}}"><img src="{{emo.restore}}" alt="" width="20" height="20" style="display: block">{{dp.fm.repTxt}}</button>
-                <button class="chip" style="flex: none" onClick="{{dp.toggleCat}}"><img src="{{dp.fm.emo}}" alt="" width="20" height="20" style="display: block">{{dp.fm.catNome}}</button>
+                <button class="chip" style="flex: none" onClick="{{dp.toggleCat}}"><img src="{{dp.fm.emo}}" alt="" width="20" height="20" style="display: block">Categoria: {{dp.fm.catNome}}</button>
                 <button class="{{dp.fm.fotoCls}}" style="flex: none" onClick="{{dp.toggleFoto}}"><img src="{{emo.camera}}" alt="" width="20" height="20" style="display: block">{{dp.fm.fotoTxt}}</button>
                 <button class="{{dp.fm.notaCls}}" style="flex: none" onClick="{{dp.toggleNota}}"><img src="{{emo.pencil}}" alt="" width="20" height="20" style="display: block">Nota</button>
                 <button class="chip" style="flex: none" onClick="{{dp.lerRecibo}}"><img src="{{emo.receipt}}" alt="" width="20" height="20" style="display: block">Ler recibo · Pro</button>
@@ -993,7 +1009,7 @@ body{background:#F1EEFB}
               <div class="grp">Saldo de cada pessoa</div>
               <sc-for list="{{dp.pessoas}}" as="p" hint-placeholder-count="4"><div class="member"><span class="av" style="{{p.av}}">{{p.ini}}</span><div style="flex: 1"><b style="font-size: 15px">{{p.nome}}</b><sc-for list="{{p.linhas}}" as="l" hint-placeholder-count="2"><div style="font-size: 13px; font-weight: 700; {{l.cor}}">{{l.txt}}</div></sc-for></div></div></sc-for>
               <div class="grp">Quem paga quem</div>
-              <sc-for list="{{dp.dividas}}" as="d" hint-placeholder-count="3"><div class="li"><span style="flex: 1; font-size: 13px; line-height: 18px">{{d.txt}}</span><sc-if value="{{d.podeLembrar}}" hint-placeholder-val="{{ false }}"><button class="chip" style="height: 34px; flex: none; padding: 0 12px" onClick="{{d.lembrar}}">Lembrar</button></sc-if><button class="chip chip-on" style="height: 34px; flex: none; padding: 0 12px" onClick="{{d.acertar}}">Registrar</button></div></sc-for>
+              <sc-for list="{{dp.dividas}}" as="d" hint-placeholder-count="3"><div class="card" style="margin-top: 8px; padding: 12px 14px"><div style="font-size: 14px; line-height: 19px">{{d.txt}}</div><div style="display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px"><sc-if value="{{d.podeLembrar}}" hint-placeholder-val="{{ false }}"><button class="chip" style="height: 36px; flex: none; padding: 0 14px" onClick="{{d.lembrar}}">Lembrar</button></sc-if><button class="chip chip-on" style="height: 36px; flex: none; padding: 0 14px" onClick="{{d.acertar}}">Registrar pagamento</button></div></div></sc-for>
               <sc-if value="{{dp.semDividas}}" hint-placeholder-val="{{ false }}"><p class="hint">Ninguém deve nada. Contas acertadas!</p></sc-if>
             </div>
           </sc-if>
@@ -1023,6 +1039,16 @@ body{background:#F1EEFB}
               </sc-if>
               <sc-if value="{{dp.fe.quitado}}" hint-placeholder-val="{{ false }}">
                 <div style="margin-top: 16px; border-radius: 26px; padding: 22px; text-align: center; color: #FFFFFF; background: radial-gradient(90% 90% at 100% 0%, #FF8A6B 0%, rgba(255,138,107,0) 55%), linear-gradient(150deg,#1DB980,#0E6B4C)"><img src="{{emo.party}}" alt="" width="72" height="72" style="display: block; margin: 0 auto; filter: drop-shadow(0 8px 12px rgba(0,0,0,.25))"><b class="disp" style="display: block; font-size: 26px; margin-top: 8px">Viagem quitada!</b><span style="font-size: 14px">Ninguém deve nada a ninguém.</span></div>
+                <div class="card" style="margin-top: 12px">
+                  <b class="disp" style="font-size: 17px">Retrospectiva da viagem</b>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px">
+                    <sc-for list="{{dp.rec.tiles}}" as="t" hint-placeholder-count="4"><div style="border-radius: 16px; padding: 10px 12px; {{t.bg}}"><div style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .5px; opacity: .8">{{t.k}}</div><b class="disp" style="font-size: 18px">{{t.v}}</b></div></sc-for>
+                  </div>
+                  <div style="display: flex; gap: 8px; align-items: center; margin-top: 10px; font-size: 13px; color: #3F3A5A"><img src="{{emo.heart}}" alt="" width="20" height="20" style="display: block; flex: none"><span>O match do grupo: <b>Trattoria em Trastevere</b>, curtida por 4 de 4.</span></div>
+                </div>
+                <sc-if value="{{dp.rec.temAgencia}}" hint-placeholder-val="{{ true }}"><div class="card" style="margin-top: 10px; text-align: center"><b style="font-size: 15px">Como foi a {{dp.agNome}}?</b><div style="display: flex; justify-content: center; gap: 6px; margin-top: 8px"><sc-for list="{{dp.rec.estrelas}}" as="e" hint-placeholder-count="5"><button onClick="{{e.pick}}" aria-label="{{e.aria}}" style="border: none; background: transparent; cursor: pointer; padding: 2px"><img src="{{emo.star}}" alt="" width="34" height="34" style="display: block; {{e.op}}"></button></sc-for></div><div style="font-size: 12px; color: #625D7C; margin-top: 4px">{{dp.rec.notaTxt}}</div></div></sc-if>
+                <button class="btn btn-p" style="margin-top: 12px" onClick="{{dp.rec.proxima}}"><img src="{{emo.airplane}}" alt="" width="24" height="24" style="display: block">Planejar a próxima viagem com este grupo</button>
+                <button class="btn btn-s" style="margin-top: 8px" onClick="{{dp.rec.compartilhar}}"><img src="{{emo.camera}}" alt="" width="22" height="22" style="display: block">Compartilhar a retrospectiva</button>
               </sc-if>
               <div style="margin-top: 14px">
                 <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: #3F3A5A"><span>{{dp.fe.progTxt}}</span><span>{{dp.fe.moedasTxt}}</span></div>
@@ -1047,7 +1073,7 @@ body{background:#F1EEFB}
                 </div>
               </sc-for>
               <sc-if value="{{dp.fe.porMoeda}}" hint-placeholder-val="{{ false }}"><p class="hint" style="margin-top: 10px">Cada moeda é acertada na moeda em que foi gasta: euro com euro, real com real.</p></sc-if>
-              <div style="display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #F0ECFF; color: #3F3A5A; font-size: 13px; line-height: 19px"><img src="{{emo.bell}}" alt="" width="24" height="24" style="display: block; flex: none"><span><b>Lembrete automático:</b> ao voltar da viagem (18 nov), quem tiver repasse pendente recebe um aviso <b>a cada 3 dias</b> até tudo ficar quitado. {{dp.fe.proxLembrete}}</span></div>
+              <sc-if value="{{dp.fe.pendente}}" hint-placeholder-val="{{ true }}"><div style="display: flex; gap: 10px; margin-top: 12px; padding: 12px 14px; border-radius: 16px; background: #F0ECFF; color: #3F3A5A; font-size: 13px; line-height: 19px"><img src="{{emo.bell}}" alt="" width="24" height="24" style="display: block; flex: none"><span><b>Lembrete automático:</b> ao voltar da viagem (18 nov), quem tiver repasse pendente recebe um aviso <b>a cada 3 dias</b> até tudo ficar quitado. {{dp.fe.proxLembrete}}</span></div></sc-if>
               <sc-if value="{{dp.fe.pendente}}" hint-placeholder-val="{{ true }}"><button onClick="{{dp.simLembrete}}" style="margin-top: 8px; width: 100%; border: 1px dashed #D9D2F2; background: transparent; border-radius: 14px; padding: 10px; font-size: 12px; font-weight: 700; color: #625D7C; cursor: pointer; font-family: inherit">Simular: lembrete de 21 nov</button></sc-if>
               <p class="hint" style="margin-top: 12px">Com "simplificar dívidas" ligado, o saldo final de cada pessoa não muda; só diminui o número de pagamentos.</p>
             </div>
@@ -1072,6 +1098,7 @@ body{background:#F1EEFB}
               <button class="btn btn-s" style="margin-top: 6px" onClick="{{dp.sair}}">Sair do grupo</button>
               <button class="btn" style="margin-top: 10px; background: #FDECEC; color: #B42318" onClick="{{dp.pedirExcluir}}">Excluir grupo</button>
               <sc-if value="{{dp.cfg.confirmOn}}" hint-placeholder-val="{{ false }}"><div class="card" style="margin-top: 10px; border: 2px solid #F5C2C0"><b style="font-size: 15px">Excluir o grupo para todos?</b><p class="sub" style="font-size: 13px; margin-top: 4px">Some para as 4 pessoas, com despesas e pagamentos. Dá para restaurar pela atividade.</p><div style="display: flex; gap: 8px; margin-top: 10px"><button class="btn btn-s" onClick="{{dp.cancelarExcluir}}">Cancelar</button><button class="btn" style="background: #B42318; color: #FFFFFF" onClick="{{dp.excluirGrupo}}">Excluir para todos</button></div></div></sc-if>
+              <div style="position: sticky; bottom: 0; margin: auto -22px -22px; padding-top: 12px"><div class="tabbar"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><span style="position: relative"><img src="{{t.emo}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{t.temBadge}}" hint-placeholder-val="{{ false }}"><span class="tbadge">{{t.n}}</span></sc-if></span>{{t.label}}</button></sc-for></div></div>
             </div>
           </sc-if>
 
@@ -1146,6 +1173,7 @@ body{background:#F1EEFB}
               <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.financas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><b style="font-size: 17px">Avisos</b></div>
               <sc-for list="{{dp.avisos}}" as="n" hint-placeholder-count="2"><button onClick="{{n.abrir}}" style="display: flex; gap: 10px; align-items: flex-start; width: 100%; text-align: left; margin-top: 10px; padding: 12px 14px; border-radius: 18px; border: none; cursor: pointer; font-family: inherit; color: #1E1840; {{n.bg}}"><img src="{{n.emo}}" alt="" width="30" height="30" style="display: block; flex: none"><span style="flex: 1; font-size: 14px; line-height: 20px"><b style="display: block">{{n.titulo}}</b>{{n.txt}}<span style="display: block; font-size: 12px; color: #625D7C; margin-top: 2px">{{n.quando}}</span></span><sc-if value="{{n.nova}}" hint-placeholder-val="{{ false }}"><span style="width: 10px; height: 10px; border-radius: 999px; background: #E8445A; flex: none; margin-top: 6px"></span></sc-if></button></sc-for>
               <sc-if value="{{dp.semAvisos}}" hint-placeholder-val="{{ false }}"><p class="hint" style="margin-top: 14px">Nenhum aviso por enquanto. Quando alguém do grupo ou a agência lançar uma despesa, você é avisado aqui e no celular.</p></sc-if>
+              <div style="position: sticky; bottom: 0; margin: auto -22px -22px; padding-top: 12px"><div class="tabbar"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><span style="position: relative"><img src="{{t.emo}}" alt="" width="24" height="24" style="display: block"><sc-if value="{{t.temBadge}}" hint-placeholder-val="{{ false }}"><span class="tbadge">{{t.n}}</span></sc-if></span>{{t.label}}</button></sc-for></div></div>
             </div>
           </sc-if>
 
@@ -1342,7 +1370,7 @@ class Component extends DCLogic {
       f: { email: '', senha: '', nome: '', nasc: '', tel: '', termos: false, code: '', pessoas: 1, tipo: '', destino: '', dias: 5, faixa: -1, cidadeAtend: '', dDesc: '', dValor: '', dComent: '', dPag: '', dNota: '', dBusca: '' },
       cidadesSel: { Roma: true }, joined: 1, agencia: -1, semAgencia: false, ini: null, fim: null, photoIdx: 0, detail: false,
       deckIdx: 0, hist: [], likesG: 0, likesP: 0, anim: '', dragX: 0, dragging: false,
-      dp: this.despInit(),
+      dp: this.despInit(), viagemAtiva: false, nota: 0,
       modal: false, gen: 0, dia: 1, toast: '', fx: 50, fy: 60, tap: false, fingerOn: false
     };
   }
@@ -1450,7 +1478,7 @@ class Component extends DCLogic {
     else { this.setState({ fim: n }); this.setF({ dias: n - s.ini + 1 }); }
   }
 
-  go(id) { this.setState({ screen: id, modal: false }); if (id === 'gerando') this.runGen(); }
+  go(id) { this.setState({ screen: id, modal: false }); if (id === 'gerando') this.runGen(); if (id === 'financas' && !this.state.viagemAtiva) this.setState({ viagemAtiva: true }); }
   setF(patch) { this.setState({ f: Object.assign({}, this.state.f, patch) }); }
   showToast(t) { this.setState({ toast: t }); this.later(() => this.setState({ toast: '' }), 1800); }
 
@@ -1547,7 +1575,7 @@ class Component extends DCLogic {
       { x: 50, y: 18, run: t('cidadeAtend', 'São Paulo') },
       { x: 50, y: 31, run: () => { this.setState({ agencia: 0 }); return 600; } },
       { x: 50, y: 92, run: () => { this.go('financas'); return 2200; } },
-      { x: 50, y: 94, run: () => { dv().novo(); return 700; } },
+      { x: 50, y: 86, run: () => { dv().novo(); return 700; } },
       { x: 58, y: 24, run: t('dDesc', 'Jantar em Trastevere') },
       { x: 60, y: 38, run: t('dValor', '160') },
       { x: 77, y: 47, run: g('dividir', 1200) },
@@ -1557,7 +1585,7 @@ class Component extends DCLogic {
       { x: 92, y: 80, run: () => { this.agenciaLanca(); return 2400; } },
       { x: 50, y: 7, run: () => { dv().abrirPush(); return 3000; } },
       { x: 12, y: 8, run: g('financas', 900) },
-      { x: 50, y: 94, run: () => { dv().novo(); return 700; } },
+      { x: 50, y: 86, run: () => { dv().novo(); return 700; } },
       { x: 58, y: 24, run: t('dDesc', 'Passeio de Vespa') },
       { x: 60, y: 38, run: t('dValor', '90') },
       { x: 77, y: 47, run: g('dividir', 1100) },
@@ -1568,17 +1596,19 @@ class Component extends DCLogic {
       { x: 84, y: 8, run: () => { dv().salvar(); return 1600; } },
       { x: 65, y: 36, run: g('saldos', 2600) },
       { x: 12, y: 8, run: g('financas', 800) },
-      { x: 50, y: 94, run: () => { dv().novo(); return 2400; } },
+      { x: 50, y: 86, run: () => { dv().novo(); return 2400; } },
       { x: 50, y: 86, run: () => { dv().ativarPasse(); return 1800; } },
       { x: 28, y: 36, run: g('fechamento', 2600) },
-      { x: 77, y: 48, run: () => { pagar(); return 900; } },
-      { x: 77, y: 55, run: () => { pagar(); return 900; } },
-      { x: 77, y: 62, run: () => { pagar(); return 900; } },
+      { x: 72, y: 47, run: () => { pagar(); return 900; } },
+      { x: 72, y: 47, run: () => { pagar(); return 900; } },
+      { x: 72, y: 47, run: () => { pagar(); return 900; } },
       { x: 50, y: 50, run: () => { dv().simLembrete(); return 2600; } },
       { x: 50, y: 7, run: () => { dv().abrirPush(); return 1200; } },
-      { x: 77, y: 69, run: () => { pagar(); return 900; } },
-      { x: 77, y: 76, run: () => { pagar(); return 900; } },
-      { x: 77, y: 83, run: () => { pagar(); return 2800; } }
+      { x: 72, y: 47, run: () => { pagar(); return 900; } },
+      { x: 72, y: 47, run: () => { pagar(); return 900; } },
+      { x: 72, y: 47, run: () => { pagar(); return 2400; } },
+      { x: 50, y: 30, run: () => { try { const c = Array.from(document.querySelectorAll('.scr .card')).find((x) => /Como foi a/.test(x.textContent)); if (c) c.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (err) { } return 1400; } },
+      { x: 74, y: 52, run: () => { this.setState({ nota: 5 }); this.showToast('Obrigado! A avaliação ajuda outros grupos a escolher.'); return 3600; } }
     ];
   }
 
@@ -1893,7 +1923,7 @@ class Component extends DCLogic {
     const pessoas = ativos.map((i) => ({ nome: i === 0 ? 'Você' : nomes[i], ini: inis[i], av: avs[i], linhas: moedas.map((m) => { const v = net[m][i]; return { txt: v > 0.004 ? 'recebe ' + fmt(v, m) : (v < -0.004 ? 'deve ' + fmt(v, m) : 'quite em ' + (m === 'EUR' ? 'euro' : 'real')), cor: v > 0.004 ? verde : (v < -0.004 ? verm : cinza) }; }) }));
     // fechamento
     const finais = this.dDebts(D.exps, true);
-    const feitos = D.pagos.map((p) => ({ ...p, feito: true })); const todos = feitos.concat(finais.map((p) => ({ ...p, feito: false })));
+    const feitos = D.pagos.map((p) => ({ ...p, feito: true })); const todos = finais.map((p) => ({ ...p, feito: false })).concat(feitos);
     const nTot = todos.length; const nFeitos = feitos.length;
     const fe = {
       repasses: todos.map((r) => ({
@@ -1983,7 +2013,7 @@ class Component extends DCLogic {
       setPag: (ev) => this.setF({ dPag: ev.target.value }),
       stDica: (() => { const d = debts.find((x) => x.de === st.de && x.para === st.para && x.moeda === st.moeda); return d ? 'Saldo em aberto entre os dois: ' + fmt(d.valor, d.moeda) + '. Pode registrar um valor menor (pagamento parcial).' : 'Não há saldo em aberto nessa direção; o pagamento vira crédito.'; })(),
       registrar: () => this.dRegistrar(st.de, st.para, this.dNum(f.dPag), st.moeda),
-      prev: (() => { const fx = [['Até R$ 300', 0, 300], ['R$ 300 a R$ 600', 300, 600], ['R$ 600 a R$ 1.000', 600, 1000], ['Acima de R$ 1.000', 1000, 1e9]][s.f.faixa >= 0 ? s.f.faixa : 1]; const dias = 2; /* dias de viagem até hoje: 13 e 14 nov */ const minha = {}; D.exps.filter((x) => !x.del && !x.pay).forEach((x) => { minha[x.moeda] = (minha[x.moeda] || 0) + x.owed[0]; }); const real = Object.keys(minha).sort().map((m) => fmt(minha[m] / dias, m)).join(' + '); const brl = (minha.BRL || 0) / dias; return { on: !!real && !cfg.excluido, real: real || '—', faixa: fx[0], leitura: brl > fx[2] ? 'Em real, você já passou da faixa (o pacote entra aqui).' : 'Os gastos em euro aparecem separados, sem conversão.' }; })(),
+      prev: (() => { const fx = [['Até R$ 300', 0, 300], ['R$ 300 a R$ 600', 300, 600], ['R$ 600 a R$ 1.000', 600, 1000], ['Acima de R$ 1.000', 1000, 1e9]][s.f.faixa >= 0 ? s.f.faixa : 1]; const dias = 2; /* dias de viagem até hoje: 13 e 14 nov */ const minha = {}; D.exps.filter((x) => !x.del && !x.pay).forEach((x) => { minha[x.moeda] = (minha[x.moeda] || 0) + x.owed[0]; }); const real = Object.keys(minha).sort().map((m) => (m === 'EUR' ? 'em euro ' : 'em real ') + fmt(minha[m] / dias, m)).join(' · '); const brl = (minha.BRL || 0) / dias; return { on: !!real && !cfg.excluido, real: real || '—', faixa: fx[0], leitura: brl > fx[2] ? 'Em real, você já passou da faixa (o pacote entra aqui).' : 'Os gastos em euro aparecem separados, sem conversão.' }; })(),
       toggleBusca: () => { if (!this.dPro('busca')) return; this.setDp({ buscaOn: !D.buscaOn }); this.setF({ dBusca: '' }); },
       buscaOn: D.buscaOn, setBusca: (ev) => this.setF({ dBusca: ev.target.value }),
       abrirGraf: () => { if (this.dPro('graf')) this.go('graficos'); },
@@ -2019,6 +2049,14 @@ class Component extends DCLogic {
       togglePush: () => this.dSetCfg({ push: !cfg.push }), toggleEmail: () => this.dSetCfg({ email: !cfg.email }),
       expRows: D.exps.filter((x) => !x.del).slice().sort((a, b) => (a.dia || 0) - (b.dia || 0)).map((x) => { const imp = x.pay ? [0, 1, 2, 3].map((i) => i === x.de ? x.valor : (i === x.para ? -x.valor : 0)) : x.paid.map((v, i) => v - x.owed[i]); return { data: x.dia + '/11', desc: x.pay ? 'Pagamento · ' + x.desc : x.desc, moeda: x.moeda === 'EUR' ? '€' : 'R$', custo: (x.valor).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), imp: imp.map((v) => ({ t: Math.abs(v) < 0.005 ? '0,00' : (v > 0 ? '+' : '−') + Math.abs(v).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }), cor: v > 0.004 ? verde : (v < -0.004 ? verm : cinza) })) }; }),
       baixarCsv: () => { try { const blob = new Blob(['\ufeff' + this.dCsv()], { type: 'text/csv;charset=utf-8' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'despesas-roma-florenca.csv'; document.body.appendChild(a); a.click(); a.remove(); this.showToast('Planilha gerada'); } catch (err) { this.showToast('No app real, baixa a planilha CSV'); } },
+      rec: {
+        tiles: (() => { const g = {}; D.exps.filter((x) => !x.del && !x.pay).forEach((x) => { g[x.moeda] = (g[x.moeda] || 0) + x.valor; }); return [{ k: 'Dias juntos', v: '6 dias', bg: 'background: #F0ECFF; color: #4A2FD6' }, { k: 'Gasto do grupo', v: Object.keys(g).sort().map((m) => fmt(g[m], m)).join(' + ') || '—', bg: 'background: #FFF1E3; color: #93370D' }, { k: 'Despesas', v: D.exps.filter((x) => !x.del && !x.pay).length + ' lançadas', bg: 'background: #E4F7EE; color: #0E6B4C' }, { k: 'Perfil do grupo', v: 'Gastronomia', bg: 'background: #FFE9EF; color: #9F1239' }]; })(),
+        temAgencia: !!agNome,
+        estrelas: [1, 2, 3, 4, 5].map((n) => ({ aria: n + (n === 1 ? ' estrela' : ' estrelas'), op: s.nota >= n ? '' : 'opacity: .25; filter: grayscale(1)', pick: () => { this.setState({ nota: n }); this.showToast('Obrigado! A avaliação ajuda outros grupos a escolher.'); } })),
+        notaTxt: s.nota ? 'Você deu ' + s.nota + (s.nota === 1 ? ' estrela' : ' estrelas') + '. A agência fica salva para a próxima viagem.' : 'Sua avaliação entra no ranking de agências.',
+        proxima: () => { this.setF({ destino: '' }); this.go('destino'); this.showToast('Mesmo grupo de 4 pessoas, sem precisar convidar de novo'); },
+        compartilhar: () => this.showToast('No app real, gera um card da viagem para o WhatsApp e o Instagram')
+      },
       simLembrete: () => { const fin = this.dDebts(this.state.dp.exps, true); const n = { id: 'n' + this.state.dp.seq, ref: null, titulo: 'Lembrete: contas da viagem', txt: 'Faltam ' + fin.length + ' repasses para a viagem Roma e Florença ficar quitada. Toque para ver quem paga quem.', quando: '21 nov', nova: true, ag: false, lembrete: true }; this.setDp({ notifs: [n].concat(this.state.dp.notifs), push: this.state.dp.cfg.push ? n : null, seq: this.state.dp.seq + 1 }); return 900; },
       resumoPdf: () => this.showToast('No app real, abre o resumo para imprimir'),
       graf: moedas.map((m) => { const C = this.dCats(); const tot = {}; const minha = {}; D.exps.filter((x) => !x.del && !x.pay && x.moeda === m).forEach((x) => { const k = x.cat || this.dCatKey(x.desc); tot[k] = (tot[k] || 0) + x.valor; minha[k] = (minha[k] || 0) + x.owed[0]; }); const mx = Math.max(1, ...Object.values(tot)); return { moeda: m === 'EUR' ? 'Em euro' : 'Em real', barras: Object.keys(tot).sort((a, b) => tot[b] - tot[a]).map((k) => ({ nome: C[k][1], emo: EMO[C[k][0]], val: fmt(tot[k], m), minha: fmt(minha[k] || 0, m), w: 'width: ' + Math.round(tot[k] * 100 / mx) + '%' })) }; }),
@@ -2212,6 +2250,11 @@ class Component extends DCLogic {
       fingerCls: s.tap ? 'finger finger-tap' : 'finger',
       fingerStyle: 'left: ' + s.fx + '%; top: ' + s.fy + '%; opacity: ' + (s.fingerOn ? 1 : 0),
       totalTelas: scr.length, dp: this.despVals(),
+      viagemAtiva: !!s.viagemAtiva, semViagem: !s.viagemAtiva,
+      homeTitulo: s.viagemAtiva ? 'Planeje a próxima viagem' : 'Planeje sua primeira viagem',
+      homeSaldo: (() => { const n = this.dNet(s.dp.exps); const p = Object.keys(n).sort().map((m) => n[m][0]).filter((v) => Math.abs(v) > 0.004); return p.length ? 'contas em aberto' : 'contas quitadas'; })(),
+      abrirViagens: () => { if (s.viagemAtiva) this.go('financas'); else this.showToast('Você ainda não tem viagens. Toque em "Criar viagem".'); },
+      tabs: [['roteiro', 'Roteiro', EMO.map], ['financas', 'Despesas', EMO.receipt], ['avisos', 'Avisos', EMO.bell], ['cfgGrupo', 'Grupo', EMO.hug]].map((t) => { const n = t[0] === 'avisos' ? s.dp.notifs.filter((x) => x.nova).length : 0; return { label: t[1], emo: t[2], cls: s.screen === t[0] ? 'tab-i tab-on2' : 'tab-i', pick: () => this.go(t[0]), temBadge: n > 0, n: n }; }),
       stepNum: curIdx + 1, stepLabel: scr[curIdx][1], stepNota: scr[curIdx][2],
       flow: groups.map((gr) => ({
         titulo: gr[0],
