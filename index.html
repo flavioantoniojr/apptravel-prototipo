@@ -319,7 +319,7 @@ body{background:#F1EEFB}
             <div class="scr">
               <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.pessoas}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="prog"><div style="width: 42%"></div></div></div>
               <h2 class="h1">Chame o seu grupo</h2>
-              <p class="sub">O link aceita {{vagasExtras}} pessoas além de você. Quem não tem o app instala e entra direto no grupo.</p>
+              <p class="sub">O link aceita {{vagasExtras}} pessoas além de você. Quem não tem o app instala e entra direto no grupo. Se o grupo seguir com uma agência, ela recebe o nome, o contato e as respostas de cada pessoa.</p>
               <div class="card" style="margin-top: 18px; display: flex; align-items: center; gap: 10px">
                 <img src="{{emo.link}}" alt="" width="30" height="30" style="display: block; flex: none">
                 <span style="flex: 1; font-weight: 700; font-size: 14px">apptravel.app/g/7KQ2</span>
@@ -405,13 +405,13 @@ body{background:#F1EEFB}
             <div class="scr">
               <div class="topbar"><button class="iconbtn" aria-label="Voltar" onClick="{{go.dias}}"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button><div class="prog"><div style="width: 90%"></div></div></div>
               <h2 class="h1">Quanto você pretende gastar por dia?</h2>
-              <p class="sub">Por pessoa, no destino. Ajuda o app a acertar as sugestões.</p>
+              <p class="sub">Por pessoa, no destino, sem passagem e hotel. Ajuda o app a acertar as sugestões.</p>
               <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 18px">
                 <sc-for list="{{faixas}}" as="x" hint-placeholder-count="4">
                   <button class="{{x.cls}}" onClick="{{x.pick}}"><span class="ico" style="background: #FFF6DC"><img src="{{x.emo}}" alt="" width="36" height="36" style="display: block"></span><span style="flex: 1"><b>{{x.label}}</b><span class="d">{{x.dica}}</span></span></button>
                 </sc-for>
               </div>
-              <p class="hint" style="margin-top: 12px; display: flex; gap: 6px; align-items: center"><img src="{{emo.lock}}" alt="" width="18" height="18" style="display: block; flex: none">Seu valor é privado: o grupo não vê.</p>
+              <p class="hint" style="margin-top: 12px; display: flex; gap: 6px; align-items: center"><img src="{{emo.lock}}" alt="" width="18" height="18" style="display: block; flex: none">Privado para o grupo. Se vocês seguirem com uma agência, ela recebe seu nome, contato e respostas.</p>
               <div class="cta"><button class="btn btn-p" onClick="{{go.swipe}}">Começar as escolhas</button></div>
             </div>
           </sc-if>
@@ -839,7 +839,7 @@ body{background:#F1EEFB}
               </div>
               <p class="hint" style="margin-top: 10px">Nomes e notas ilustrativos.</p>
               <div class="cta">
-                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #3F3A5A">Vamos compartilhar com a agência os gostos e o roteiro do grupo. Você pode desfazer depois.</p>
+                <p style="margin: 0; font-size: 13px; line-height: 18px; color: #3F3A5A">Você autoriza por todos: a agência recebe a análise, o roteiro, as faixas de gasto e os likes de cada pessoa, e o nome e o contato de todos. As escolhas travam. Até a agência aceitar, você pode desistir sem custo.</p>
                 <button class="btn btn-p" onClick="{{go.financas}}">Compartilhar e seguir</button>
               </div>
             </div>
@@ -1444,7 +1444,7 @@ class Component extends DCLogic {
       ['destino', 'Destino', 'Continente, país, cidade ou destino turístico. Destino amplo vira sugestão de cidades.'],
       ['cidades', 'Cidades', 'O sistema sugere cidades compatíveis com os dias; o cabeça do grupo escolhe.'],
       ['dias', 'Datas e horário do dia', 'Ida e volta no calendário. Com as datas, o roteiro confere se cada lugar abre naquele dia e se precisa de ingresso. Horário ativo já preenchido (09:00–21:00).'],
-      ['gasto', 'Gasto por faixa', 'Faixas em R$ por dia por pessoa. O valor é privado e serve para otimizar as sugestões.'],
+      ['gasto', 'Gasto por faixa', 'Faixas em R$ por dia por pessoa, no destino. Privado para o grupo; a agência escolhida recebe.'],
       ['swipe', 'Escolhas (swipe)', 'Agrupamentos por cidade, até 10 likes cada. Desfazer, cobertura visível e botões além do gesto.'],
       ['status', 'Status do grupo', 'Ninguém vê o voto do outro, só quem falta. Quem já terminou pode encerrar, com confirmação.'],
       ['gerando', 'Gerando o resultado', 'Carregamento em etapas visíveis, para a espera virar progresso.'],
@@ -2245,7 +2245,7 @@ class Component extends DCLogic {
       })),
       semAgencia: () => { this.setState({ semAgencia: true, agencia: -1 }); this.go('financas'); },
       agencias: agList.map((a, i) => ({ nome: a.nome, det: a.det, nota: a.nota, cls: s.agencia === i ? 'opt opt-on' : 'opt', pick: () => this.setState({ agencia: i, semAgencia: false }) })),
-      finMsg: s.agencia >= 0 ? 'Agência exemplo ' + 'ABC'[s.agencia] + ' recebeu os gostos e o roteiro do grupo. Agora vocês podem dividir as despesas aqui.' : 'Roteiro salvo. Agora vocês podem dividir as despesas aqui.',
+      finMsg: s.agencia >= 0 ? 'Agência exemplo ' + 'ABC'[s.agencia] + ' recebeu o pedido e responde em até 1 dia útil. Agora vocês podem dividir as despesas aqui.' : 'Roteiro salvo. Agora vocês podem dividir as despesas aqui.',
       toastOn: !!s.toast, toast: s.toast,
       fingerCls: s.tap ? 'finger finger-tap' : 'finger',
       fingerStyle: 'left: ' + s.fx + '%; top: ' + s.fy + '%; opacity: ' + (s.fingerOn ? 1 : 0),
@@ -2269,5 +2269,6 @@ class Component extends DCLogic {
 
 window.__boot(Component);
 </script>
+
 </body>
 </html>
